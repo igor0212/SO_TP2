@@ -1,1 +1,2 @@
-gcc main.c -o main -lpthread
+gcc main.c -o tp2virtual
+./tp2virtual fifo arquivo.log 4 128
