@@ -126,7 +126,7 @@ void main( int argc, char *argv[] )  {
 
         }else
         if(strcmp(nome_algoritmo, "lru") == 0){
-
+            lru(total_paginas, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
         } else
         if(strcmp(nome_algoritmo, "2a") == 0){  
 
