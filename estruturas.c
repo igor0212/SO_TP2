@@ -7,12 +7,12 @@ void inicializacao (Fila * sequencia){
 }
 
 /* inserir (adicionar) um elemento na fila */       
-int inserir (Fila * sequencia, Elemento * atual, pagina page){         
+int inserir (Fila * sequencia, Elemento * atual, Pagina page){         
   Elemento *novo_elemento;         
   if ((novo_elemento = (Elemento *) malloc (sizeof (Elemento))) == NULL)
     return -1;         
 
-  novo_elemento->page.numero_pagina = page.numero_pagina;
+  novo_elemento->page.numero = page.numero;
   novo_elemento->page.quadro = page.quadro;
   novo_elemento->page.ultimo_endereco_acessado = page.ultimo_endereco_acessado;
   novo_elemento->page.suja = page.suja;
@@ -54,7 +54,7 @@ void exibir (Fila *sequencia){
   int i;         
   atual = sequencia->inicio;         
   for(i=0;i<sequencia->tamanho;++i){           
-    printf("numero da página: %u \n", atual->page.numero_pagina);           
+    printf("numero da página: %u \n", atual->page.numero);           
     atual = atual->seguinte;         
   }       
 }

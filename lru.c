@@ -8,7 +8,7 @@ void lru(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada, 
       bool pagina_esta_na_tabela = false;
       for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
         //se a pagina acessada esta na tabela de paginas
-        if(tabela_nao_fifo.paginas[i_pagina].numero_pagina == numero_pagina_acessada){
+        if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){
           hit++;
 
           //atualiza dados da tabela, referentes a pagina acessada
@@ -49,7 +49,7 @@ void lru(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada, 
         }
 
         //escreve(ou sobrescreve) uma nova pagina na tabela
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].numero_pagina = numero_pagina_acessada;
+        tabela_nao_fifo.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
