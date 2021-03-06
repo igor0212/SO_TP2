@@ -18,7 +18,7 @@ void leitura(FILE *arquivo_log)
 
 void main( int argc, char *argv[] )  {        
 
-    clock_t inicio, fim;
+    clock_t inicio;
     inicio = clock();
 
     if( argc != 5 ) {
@@ -54,11 +54,7 @@ void main( int argc, char *argv[] )  {
 
     leitura(arquivo_log);
 
-    fclose(arquivo_log);
-    
-    fim = clock();    
+    fclose(arquivo_log);    
 
-    double tempo_execucao = (fim - inicio)/CLOCKS_PER_SEC;
-
-    printf("Tempo de execução: %f\n", tempo_execucao);
+    printf("Tempode execução: %g ms \n",((clock() - inicio) * 1000.0) / (double) CLOCKS_PER_SEC);    
 };
