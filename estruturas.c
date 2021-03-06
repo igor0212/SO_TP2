@@ -1,4 +1,4 @@
-#include "structures.h"
+#include "estruturas.h"
 
 void inicializacao (Fila * sequencia){         
   sequencia->inicio = NULL;         

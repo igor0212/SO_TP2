@@ -1,28 +1,14 @@
-TARGET = main
+tp2virtual: main.o fifo.o lru.o estruturas.o
+	gcc main.o fifo.o lru.o estruturas.o -o tp2virtual
+	
+main.o: main.c
+	gcc -c -g main.c
+	
+fifo.o: fifo.c fifo.h
+	gcc -c -g fifo.c
 
-SRCS  = $(shell find . -type f -name '*.c')
-HEADS = $(shell find . -type f -name '*.h')
-OBJS = $(SRCS:.c=.o)
-DEPS = Makefile.depend
+lru.o: lru.c lru.h
+	gcc -c -g lru.c
 
-INCLUDES = -I./include
-CXXFLAGS = -O2 -Wall $(INCLUDES)
-LDFLAGS = -lm
-
-all: $(TARGET)
-
-$(TARGET): $(OBJS) $(HEADS)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJS)
-
-run: all
-	@./$(TARGET)
-
-.PHONY: depend clean
-depend:
-	$(CXX) $(INCLUDES) -MM $(SRCS) > $(DEPS)
-	@sed -i -E "s/^(.+?).o: ([^ ]+?)\1/\2\1.o: \2\1/g" $(DEPS)
-
-clean:
-	$(RM) $(OBJS) $(TARGET)
-
--include $(DEPS)
+estruturas.o: estruturas.c estruturas.h
+	gcc -c -g estruturas.c

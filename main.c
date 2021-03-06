@@ -1,10 +1,10 @@
-#include "structures.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include "fifo.h"
+#include "estruturas.h"
+#include "lru.h"
 
 char *nome_algoritmo;
 char *nome_arquivo;
