@@ -123,7 +123,7 @@ void main( int argc, char *argv[] )  {
         unsigned int numero_pagina_acessada = endereco >> s;
 
         if(strcmp(nome_algoritmo, "fifo") == 0){
-
+            fifo(total_paginas, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
         }else
         if(strcmp(nome_algoritmo, "lru") == 0){
             lru(total_paginas, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);

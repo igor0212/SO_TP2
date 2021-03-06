@@ -22,7 +22,7 @@ typedef struct Pagina{
 //esta tabela nao sera usada para o fifo ou para o lru
 typedef struct tabela{
     unsigned int num_entradas;
-    pagina *paginas;
+    Pagina *paginas;
 } tabela;
 
 typedef struct quadro{
@@ -36,7 +36,7 @@ typedef struct quadro{
 /////////////////////////////////////////////////////////////
 
 typedef struct elementoLista{         
-    pagina page;         
+    Pagina page;         
     struct elementoLista *seguinte;       
 } Elemento;
 
@@ -47,7 +47,7 @@ typedef struct ListaDetectada{
 
 void inicializacao (Fila * sequencia);
 
-int inserir (Fila * sequencia, Elemento * atual, pagina page);
+int inserir (Fila * sequencia, Elemento * atual, Pagina page);
 
 void exibir (Fila *sequencia);
 
