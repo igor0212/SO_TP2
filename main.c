@@ -45,6 +45,12 @@ void main( int argc, char *argv[] )  {
     Fila *tabela_fifo;
     tabela tabela_nao_fifo; 
 
+    if(strcmp(nome_algoritmo, "fifo") == 0){
+    if ((tabela_fifo = (Fila *) malloc(sizeof(Fila))) == NULL)           
+      return -1;         
+    inicializacao(tabela_fifo); 
+  }
+
     printf("Executando o simulador...\n");    
     printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
