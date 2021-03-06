@@ -1,3 +1,5 @@
+#include "structures.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -36,6 +38,13 @@ void main( int argc, char *argv[] )  {
         return;
     }
 
+    int total_paginas = tamanho_memoria / tamanho_paginas; //numero total de paginas/quadros na tabela e na memoria
+    printf("Numero total de paginas na memoria e na tabela: %d\n", total_paginas);
+
+    //inicializando estruturas para executar os algoritmos de substituicao
+    Fila *tabela_fifo;
+    tabela tabela_nao_fifo; 
+
     printf("Executando o simulador...\n");    
     printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
@@ -48,6 +57,8 @@ void main( int argc, char *argv[] )  {
         printf("Error: Arquivo %s não encontrado.\n", nome_arquivo);
         return;
     }
+
+
 
     leitura(arquivo_log);
     
