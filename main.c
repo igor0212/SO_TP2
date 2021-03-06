@@ -3,15 +3,17 @@
 #include <string.h>
 #include <time.h>
 
-typedef struct {
-    const char *name;
-    pthread_t thread;
-} friend;
+char *nome_algoritmo;
+char *nome_arquivo;
+int tamanho_paginas;
+int tamanho_memoria;
 
-pthread_mutex_t oven;
-pthread_cond_t queue;
-pthread_cond_t rules;
-int it;
+void leitura(FILE *arquivo_log)
+{
+    char * linha = NULL;
+    size_t tamanho = 0;
+    ssize_t leitura;
+}
 
 void main( int argc, char *argv[] )  {        
 
@@ -23,22 +25,31 @@ void main( int argc, char *argv[] )  {
       return;
     }
 
-    char *algoritmo = argv[1];
-    char *arquivo = argv[2];
-    int tamanho_paginas = atoi(argv[3]);
-    int tamanho_memoria = atoi(argv[4]);    
+    nome_algoritmo = argv[1];
+    nome_arquivo = argv[2];
+    tamanho_paginas = atoi(argv[3]);
+    tamanho_memoria = atoi(argv[4]);    
 
-    if(strcmp(algoritmo, "lru") != 0 && strcmp(algoritmo, "2a") != 0 && strcmp(algoritmo, "fifo") != 0)
+    if(strcmp(nome_algoritmo, "lru") != 0 && strcmp(nome_algoritmo, "2a") != 0 && strcmp(nome_algoritmo, "fifo") != 0)
     {
-        printf("Error: Algoritmo %s desconhecido.\n", algoritmo);
+        printf("Error: Algoritmo %s desconhecido.\n", nome_algoritmo);
         return;
     }
 
     printf("Executando o simulador...\n");    
-    printf("Arquivo de entrada: %s\n", arquivo);
+    printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
-    printf("Técnica de reposição: %s\n", algoritmo);
+    printf("Técnica de reposição: %s\n", nome_algoritmo);    
+    
+    FILE *arquivo_log = fopen(nome_arquivo, "r");
+
+    if (arquivo_log == NULL){        
+        printf("Error: Arquivo %s não encontrado.\n", nome_arquivo);
+        return;
+    }
+
+    leitura(arquivo_log);
     
     fim = clock();    
 };
