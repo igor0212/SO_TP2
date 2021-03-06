@@ -40,20 +40,7 @@ void main( int argc, char *argv[] )  {
     {
         printf("Error: Algoritmo %s desconhecido.\n", nome_algoritmo);
         return;
-    }
-
-    int total_paginas = tamanho_memoria / tamanho_paginas; //numero total de paginas/quadros na tabela e na memoria
-    printf("Numero total de paginas na memoria e na tabela: %d\n", total_paginas);
-
-    //inicializando estruturas para executar os algoritmos de substituicao
-    Fila *tabela_fifo;
-    tabela tabela_nao_fifo; 
-
-    if(strcmp(nome_algoritmo, "fifo") == 0){
-    if ((tabela_fifo = (Fila *) malloc(sizeof(Fila))) == NULL)           
-      return -1;         
-    inicializacao(tabela_fifo); 
-  }
+    }        
 
     printf("Executando o simulador...\n");    
     printf("Arquivo de entrada: %s\n", nome_arquivo);
@@ -68,8 +55,6 @@ void main( int argc, char *argv[] )  {
         printf("Error: Arquivo %s não encontrado.\n", nome_arquivo);
         return;
     }
-
-
 
     leitura(arquivo_log);
 
