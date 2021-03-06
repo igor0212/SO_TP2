@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "fifo.h"
 
 char *nome_algoritmo;
 char *nome_arquivo;
@@ -11,9 +12,10 @@ int tamanho_tabela;
 
 void leitura(FILE *arquivo_log)
 {
-    char * linha = NULL;
-    size_t tamanho = 0;
-    ssize_t leitura;
+    if(strcmp(nome_algoritmo, "fifo") == 0)
+    {
+        leitura_fifo(arquivo_log);
+    }
 }
 
 void main( int argc, char *argv[] )  {        

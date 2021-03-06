@@ -1,2 +1,2 @@
-gcc main.c -o tp2virtual
+make
 ./tp2virtual fifo arquivo.log 4 128
