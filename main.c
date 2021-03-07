@@ -128,7 +128,7 @@ void main(int argc, char *argv[] ){
     double tempoExecucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
 
     if(strcmp(nome_algoritmo, "fifo") == 0){
-        Elemento* i_elemento;
+        Item* i_elemento;
         i_elemento = tabela_fifo->inicio;
 
         while(i_elemento != NULL){

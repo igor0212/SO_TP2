@@ -7,7 +7,7 @@ int i;
 void fifo(int total_paginas, Fila* tabela_fifo, int numero_pagina_acessada, int hit,  unsigned int endereco, char operacao, int contador_clock, int miss, quadro *quadros_memoria, int escritas)
 {
     //verifica se pagina esta na fila
-    Elemento* i_elemento;
+    Item* i_elemento;
     i_elemento = tabela_fifo->inicio;
     int pagina_esta_na_fila = 0;
     while(i_elemento != NULL){

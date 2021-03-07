@@ -7,15 +7,15 @@ void inicializacao (Fila * sequencia){
 }
 
 /* inserir (adicionar) um elemento na fila */       
-int inserir (Fila * sequencia, Elemento * atual, Pagina page){         
-  Elemento *novo_elemento;         
-  if ((novo_elemento = (Elemento *) malloc (sizeof (Elemento))) == NULL)
+int inserir (Fila * sequencia, Item * atual, Pagina pagina){         
+  Item *novo_elemento;         
+  if ((novo_elemento = (Item *) malloc (sizeof (Item))) == NULL)
     return -1;         
 
-  novo_elemento->page.numero = page.numero;
-  novo_elemento->page.quadro = page.quadro;
-  novo_elemento->page.ultimo_endereco_acessado = page.ultimo_endereco_acessado;
-  novo_elemento->page.suja = page.suja;
+  novo_elemento->pagina.numero = pagina.numero;
+  novo_elemento->pagina.quadro = pagina.quadro;
+  novo_elemento->pagina.ultimo_endereco_acessado = pagina.ultimo_endereco_acessado;
+  novo_elemento->pagina.suja = pagina.suja;
           
   if(atual == NULL){           
     if(sequencia->tamanho == 0)             
@@ -36,7 +36,7 @@ int inserir (Fila * sequencia, Elemento * atual, Pagina page){
 
 /* remover (eliminar) elemento da fila */       
 int remover (Fila * sequencia){         
-  Elemento *remov_elemento;         
+  Item *remov_elemento;         
   if (sequencia->tamanho == 0)           
     return -1;         
   remov_elemento = sequencia->inicio;         
@@ -50,25 +50,11 @@ int remover (Fila * sequencia){
 
 /* exibição da fila */       
 void exibir (Fila *sequencia){         
-  Elemento *atual;         
+  Item *atual;         
   int i;         
   atual = sequencia->inicio;         
   for(i=0;i<sequencia->tamanho;++i){           
-    printf("numero da página: %u \n", atual->page.numero);           
+    printf("numero da página: %u \n", atual->pagina.numero);           
     atual = atual->seguinte;         
   }       
-}
-
-///////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-
-//Função para validação do algorítmo recebido por parametro em main()
-int valida_entrada(char* alg){
-
-  if ((strcmp(alg, "lru") == 0) || (strcmp(alg, "2a") == 0) || (strcmp(alg, "fifo") == 0) || (strcmp(alg, "new") == 0)){
-    return 1;
-  }
-  else
-    return 0;
 }

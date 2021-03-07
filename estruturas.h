@@ -30,24 +30,20 @@ typedef struct quadro{
     int esta_na_memoria;//indica se o quadro esta na memoria ou nao
 } quadro;
 
-///////////////////////////////////////////////////////////////
-//                            Lista                         //
-/////////////////////////////////////////////////////////////
+typedef struct StructItem{         
+    Pagina pagina;         
+    struct StructItem *seguinte;       
+} Item;
 
-typedef struct elementoLista{         
-    Pagina page;         
-    struct elementoLista *seguinte;       
-} Elemento;
-
-typedef struct ListaDetectada{         
-    Elemento *inicio;  Elemento *fim;  int tamanho;       
+typedef struct Fila{         
+     int tamanho;       
+    Item *inicio; 
+    Item *fim;     
 } Fila;
 
 
 void inicializacao (Fila * sequencia);
 
-int inserir (Fila * sequencia, Elemento * atual, Pagina page);
+int inserir (Fila * sequencia, Item * atual, Pagina page);
 
 void exibir (Fila *sequencia);
-
-int valida_entrada(char* alg);
