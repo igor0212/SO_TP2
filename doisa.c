@@ -2,72 +2,86 @@
 #include "doisa.h"
 #include "estruturas.h"
 
-int i;
+int idx;
 
-void doisa(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada, int hit,  unsigned int endereco, char operacao, int contador_clock, int miss, Quadro *quadros_memoria, int escritas)
+Tabela doisa_execucao(int total_paginas, int numero_pagina_acessada, int hit,  unsigned int endereco, char operacao, int contador_clock, int miss, Quadro *quadros_memoria, int escritas)
 {
-    //verifica se pagina esta na tabela
-    int i_pagina;
+
+    //Inicializar
+    Tabela tabela;
+    tabela.paginas = (Pagina *) malloc(total_paginas * sizeof(Pagina));
+    for(idx = 0; idx < total_paginas; idx++)
+    {
+        tabela.paginas[idx].quadro = -1;
+        tabela.paginas[idx].segunda_chance = 0;
+    }    
+    
     int pagina_esta_na_tabela = 0;
-    for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
-      //se a pagina acessada esta na tabela de paginas
-      if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){
-        hit++;
-
-        //atualiza dados da tabela, referentes a pagina acessada
-        tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado = endereco;
-        tabela_nao_fifo.paginas[i_pagina].suja = (operacao == 'W');
-        tabela_nao_fifo.paginas[i_pagina].ultimo_acesso = contador_clock;
-        tabela_nao_fifo.paginas[i_pagina].segunda_chance = 1;
-
+    for(idx = 0; idx < total_paginas; idx++){
+      
+      if(tabela.paginas[idx].numero == numero_pagina_acessada)
+      {        
+        tabela.paginas[idx].ultimo_endereco_acessado = endereco;
+        tabela.paginas[idx].suja = (operacao == 'W');
+        tabela.paginas[idx].ultimo_acesso = contador_clock;
+        tabela.paginas[idx].segunda_chance = 1;
         pagina_esta_na_tabela = 1;
+        hit++;
         break;
       }
     }
-
-    //se a pagina nao esta na tabela
+    
     if(!pagina_esta_na_tabela){
-      miss++;
-
-      //pega o indice, no array de quadros na memoria, que recebera o novo quadro ou detecta que todos os quadros na memoria estao ocupados
+      miss++;     
       int indice_quadro_a_inserir = -1;
-      for(i = 0; i < total_paginas; i++){
-        if(!quadros_memoria[i].esta_na_memoria){
-          indice_quadro_a_inserir = i;
+
+      for(idx = 0; idx < total_paginas; idx++){
+        if(!quadros_memoria[idx].esta_na_memoria){
+          indice_quadro_a_inserir = idx;
           break;
         }
       }
-
-      //se a memoria ja estiver lotada de quadros
-      if(indice_quadro_a_inserir == -1){
-        //pego o indice da pagina least recently used
+      
+      if(indice_quadro_a_inserir == -1){        
         int menor_ultimo_acesso = -1;
-        for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
+        for(idx = 0; idx < total_paginas; idx++){
 
-          if(tabela_nao_fifo.paginas[i_pagina].ultimo_acesso < menor_ultimo_acesso){
-            menor_ultimo_acesso = tabela_nao_fifo.paginas[i_pagina].ultimo_acesso;
-            indice_quadro_a_inserir = i_pagina;
-          }
+          if(tabela.paginas[idx].ultimo_acesso < menor_ultimo_acesso){
+            menor_ultimo_acesso = tabela.paginas[idx].ultimo_acesso;
+            indice_quadro_a_inserir = idx;
+          }          
           
-          //se a pagina LRU tem uma segunda chance, remove esta segunda chance e reavalia a tabela de paginas
-          if((i_pagina == total_paginas - 1) && (tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance)){
-            tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = 0;
-            i_pagina = 0; 
+          if((idx == total_paginas - 1) && (tabela.paginas[indice_quadro_a_inserir].segunda_chance)){
+            tabela.paginas[indice_quadro_a_inserir].segunda_chance = 0;
+            idx = 0; 
           }
         }
 
-        escritas += tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja ? 1 : 0;
+        escritas += tabela.paginas[indice_quadro_a_inserir].suja ? 1 : 0;
       }
-
-      //escreve(ou sobrescreve) uma nova pagina na tabela
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = 0; 
-
-      //atualiza um atributo do quadro que estara na memoria
+      
+      tabela.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
+      tabela.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
+      tabela.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
+      tabela.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
+      tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
+      tabela.paginas[indice_quadro_a_inserir].segunda_chance = 0; 
+      
       quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
+
+      return tabela;
     }
+}
+
+void doisa_listagem(Tabela tabela, int tamanho_tabela)
+{
+  int idx;
+  for(idx = 0; idx < tamanho_tabela; idx++){            
+      if(tabela.paginas[idx].quadro != -1){
+          printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
+              tabela.paginas[idx].numero, 
+              tabela.paginas[idx].ultimo_endereco_acessado, 
+              tabela.paginas[idx].suja);
+      }
+  }
 }
