@@ -50,20 +50,10 @@ void main(int argc, char *argv[] ){
     printf("Técnica de reposição: %s\n", nome_algoritmo);    
 
     //inicializando estruturas para executar os algoritmos de substituicao
-    Fila *tabela_fifo;
+    
     Tabela tabela_nao_fifo; 
 
-    if(strcmp(nome_algoritmo, "fifo") == 0)
-    {
-        if ((tabela_fifo = (Fila *) malloc(sizeof(Fila))) == NULL)           
-        {
-            printf("Erro: Fila fifo não criada\n");
-            return;
-        }
-        
-        inicializacao(tabela_fifo); 
-    }
-    else if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0)
+    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0)
     {
         tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
         for(i = 0; i < tamanho_tabela; i++){
@@ -115,7 +105,7 @@ void main(int argc, char *argv[] ){
         unsigned int numero_pagina_acessada = endereco >> s;
 
         if(strcmp(nome_algoritmo, "fifo") == 0){
-            fifo(tamanho_tabela, tabela_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
+            fifo_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
         }else if(strcmp(nome_algoritmo, "lru") == 0){
             lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
         } else if(strcmp(nome_algoritmo, "2a") == 0){  
@@ -125,22 +115,9 @@ void main(int argc, char *argv[] ){
 
     clock_t fim = clock();
 
-    double tempoExecucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
-
-    if(strcmp(nome_algoritmo, "fifo") == 0){
-        Item* i_elemento;
-        i_elemento = tabela_fifo->inicio;
-
-        while(i_elemento != NULL){
-            printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-                i_elemento->pagina.numero, 
-                i_elemento->pagina.ultimo_endereco_acessado, 
-                i_elemento->pagina.suja ? 1 : 0);
-
-            i_elemento = i_elemento->proximo;
-        }
-    }
-    else if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0){
+    double tempoExecucao = (double)(fim - inicio) / CLOCKS_PER_SEC;   
+   
+    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0){
         int i_pagina;
         for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){            
             if(tabela_nao_fifo.paginas[i_pagina].quadro != -1){
