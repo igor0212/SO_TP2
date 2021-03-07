@@ -8,7 +8,7 @@ void doisa(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada
 {
     //verifica se pagina esta na tabela
     int i_pagina;
-    bool pagina_esta_na_tabela = false;
+    int pagina_esta_na_tabela = 0;
     for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
       //se a pagina acessada esta na tabela de paginas
       if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){
@@ -18,9 +18,9 @@ void doisa(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada
         tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado = endereco;
         tabela_nao_fifo.paginas[i_pagina].suja = (operacao == 'W');
         tabela_nao_fifo.paginas[i_pagina].ultimo_acesso = contador_clock;
-        tabela_nao_fifo.paginas[i_pagina].segunda_chance = true;
+        tabela_nao_fifo.paginas[i_pagina].segunda_chance = 1;
 
-        pagina_esta_na_tabela = true;
+        pagina_esta_na_tabela = 1;
         break;
       }
     }
@@ -51,7 +51,7 @@ void doisa(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada
           
           //se a pagina LRU tem uma segunda chance, remove esta segunda chance e reavalia a tabela de paginas
           if((i_pagina == total_paginas - 1) && (tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance)){
-            tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = false;
+            tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = 0;
             i_pagina = 0; 
           }
         }
@@ -65,9 +65,9 @@ void doisa(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada
       tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
       tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
       tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
-      tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = false; 
+      tabela_nao_fifo.paginas[indice_quadro_a_inserir].segunda_chance = 0; 
 
       //atualiza um atributo do quadro que estara na memoria
-      quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = true;
+      quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
     }
 }

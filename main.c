@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <stdbool.h>
 #include "estruturas.h"
 #include "fifo.h"
 #include "doisa.h"
@@ -69,7 +68,7 @@ void main(int argc, char *argv[] ){
         tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
         for(i = 0; i < tamanho_tabela; i++){
             tabela_nao_fifo.paginas[i].quadro = -1;
-            tabela_nao_fifo.paginas[i].segunda_chance = false;
+            tabela_nao_fifo.paginas[i].segunda_chance = 0;
         }
     }
     
@@ -77,10 +76,10 @@ void main(int argc, char *argv[] ){
     //inicializo atributos dos quadros
 
     for(i = 0; i < tamanho_tabela; i++){
-        quadros_memoria[i].esta_na_memoria = false;
+        quadros_memoria[i].esta_na_memoria = 0;
     }
     for(i = 0; i < tamanho_tabela; i++){
-        quadros_memoria[i].esta_na_memoria = false;
+        quadros_memoria[i].esta_na_memoria = 0;
     }
 
     unsigned int endereco;//endereco lido em uma linha do arquivo

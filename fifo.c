@@ -9,7 +9,7 @@ void fifo(int total_paginas, Fila* tabela_fifo, int numero_pagina_acessada, int 
     //verifica se pagina esta na fila
     Elemento* i_elemento;
     i_elemento = tabela_fifo->inicio;
-    bool pagina_esta_na_fila = false;
+    int pagina_esta_na_fila = 0;
     while(i_elemento != NULL){
       //se a pagina acessada esta na tabela de paginas
       if(i_elemento->page.numero == numero_pagina_acessada){
@@ -19,7 +19,7 @@ void fifo(int total_paginas, Fila* tabela_fifo, int numero_pagina_acessada, int 
         i_elemento->page.ultimo_endereco_acessado = endereco;
         i_elemento->page.suja = (operacao == 'W');
 
-        pagina_esta_na_fila = true;
+        pagina_esta_na_fila = 1;
         break;
       }
 
@@ -55,6 +55,6 @@ void fifo(int total_paginas, Fila* tabela_fifo, int numero_pagina_acessada, int 
       inserir(tabela_fifo, tabela_fifo->fim, *page);
 
       //atualiza um atributo do quadro que estara na memoria
-      quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = true;
+      quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
     }  
 }

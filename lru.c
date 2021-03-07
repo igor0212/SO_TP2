@@ -5,7 +5,7 @@ void lru(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada, 
       int i_pagina;
       int i;
 
-      bool pagina_esta_na_tabela = false;
+      int pagina_esta_na_tabela = 0;
       for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
         //se a pagina acessada esta na tabela de paginas
         if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){
@@ -16,7 +16,7 @@ void lru(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada, 
           tabela_nao_fifo.paginas[i_pagina].suja = (operacao == 'W');
           tabela_nao_fifo.paginas[i_pagina].ultimo_acesso = contador_clock;
 
-          pagina_esta_na_tabela = true;
+          pagina_esta_na_tabela = 1;
           break;
         }
       }
@@ -56,6 +56,6 @@ void lru(int total_paginas, tabela tabela_nao_fifo, int numero_pagina_acessada, 
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
 
         //atualiza um atributo do quadro que estara na memoria
-        quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = true;
+        quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
       }
 }
