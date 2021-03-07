@@ -104,20 +104,28 @@ void main(int argc, char *argv[] ){
 
         unsigned int numero_pagina_acessada = endereco >> s;
 
-        if(strcmp(nome_algoritmo, "fifo") == 0){
-            fifo_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
-        }else if(strcmp(nome_algoritmo, "lru") == 0){
+        if(strcmp(nome_algoritmo, "fifo") == 0)
+        {
+            fifo_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);            
+        }
+        else if(strcmp(nome_algoritmo, "lru") == 0){
             lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
-        } else if(strcmp(nome_algoritmo, "2a") == 0){  
-            doisa(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
+        } else if(strcmp(nome_algoritmo, "2a") == 0)
+        {  
+            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
+            doisa_listagem(tabela, tamanho_tabela);
         }
     }  
 
     clock_t fim = clock();
 
-    double tempoExecucao = (double)(fim - inicio) / CLOCKS_PER_SEC;   
-   
-    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0){
+    double tempoExecucao = (double)(fim - inicio) * 1000.0 / CLOCKS_PER_SEC;   
+
+    if(strcmp(nome_algoritmo, "fifo") == 0)
+    {
+        fifo_listagem();
+    }    
+    else if(strcmp(nome_algoritmo, "lru") == 0){
         int i_pagina;
         for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){            
             if(tabela_nao_fifo.paginas[i_pagina].quadro != -1){
