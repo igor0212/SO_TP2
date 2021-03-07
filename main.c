@@ -51,7 +51,7 @@ void main(int argc, char *argv[] ){
 
     //inicializando estruturas para executar os algoritmos de substituicao
     Fila *tabela_fifo;
-    tabela tabela_nao_fifo; 
+    Tabela tabela_nao_fifo; 
 
     if(strcmp(nome_algoritmo, "fifo") == 0)
     {
@@ -72,7 +72,7 @@ void main(int argc, char *argv[] ){
         }
     }
     
-    quadro quadros_memoria[tamanho_tabela];//esta sera a estrutura responsavel por simular os quadros que estarao na memoria
+    Quadro quadros_memoria[tamanho_tabela];//esta sera a estrutura responsavel por simular os quadros que estarao na memoria
     //inicializo atributos dos quadros
 
     for(i = 0; i < tamanho_tabela; i++){
@@ -133,11 +133,11 @@ void main(int argc, char *argv[] ){
 
         while(i_elemento != NULL){
             printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-                i_elemento->page.numero, 
-                i_elemento->page.ultimo_endereco_acessado, 
-                i_elemento->page.suja ? 1 : 0);
+                i_elemento->pagina.numero, 
+                i_elemento->pagina.ultimo_endereco_acessado, 
+                i_elemento->pagina.suja ? 1 : 0);
 
-            i_elemento = i_elemento->seguinte;
+            i_elemento = i_elemento->proximo;
         }
     }
     else if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0){
