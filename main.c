@@ -15,7 +15,9 @@ int tamanho_memoria;
 int tamanho_tabela;
 int i;
 
-void main(int argc, char *argv[] ){        
+void main(int argc, char *argv[] ){     
+
+    clock_t inicio = clock();   
 
     if( argc != 5 ) 
     {
@@ -94,9 +96,7 @@ void main(int argc, char *argv[] ){
     unsigned int escritas = 0;
 
     printf("Executando o simulador...\n");  
-
-    clock_t inicio;
-    inicio = clock();
+    
     int contador_clock = 0;
 
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){
@@ -118,9 +118,7 @@ void main(int argc, char *argv[] ){
         }
     }  
 
-    clock_t fim = clock();
-
-    double tempoExecucao = (double)(fim - inicio) * 1000.0 / CLOCKS_PER_SEC;   
+    
 
     if(strcmp(nome_algoritmo, "lru") == 0){
         int i_pagina;
@@ -132,7 +130,9 @@ void main(int argc, char *argv[] ){
                     tabela_nao_fifo.paginas[i_pagina].suja ? 1 : 0);
             }
         }
-    }
+    }        
+
+    printf("Tempo de execucao: %g ms. \n", (double)(clock() - inicio) * 1000.0 / CLOCKS_PER_SEC);
 
     return;   
 }
