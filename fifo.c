@@ -3,14 +3,15 @@
 #include "estruturas.h"
 
 int i;
-Fila *fila;
 
-void fifo_execucao(int total_paginas, int numero_pagina_acessada, int hit,  unsigned int endereco, char operacao, int contador_clock, int miss, Quadro *quadros_memoria, int escritas)
+Fila* fifo_execucao(int total_paginas, int numero_pagina_acessada, int hit,  unsigned int endereco, char operacao, int contador_clock, int miss, Quadro *quadros_memoria, int escritas)
 {
+    Fila *fila;
+
     if ((fila = (Fila *) malloc(sizeof(Fila))) == NULL)           
     {
         printf("Erro: Fila fifo não criada\n");
-        return;
+        exit(1);
     }
     
     Item* item;
@@ -56,9 +57,11 @@ void fifo_execucao(int total_paginas, int numero_pagina_acessada, int hit,  unsi
       inserir(fila, fila->fim, *pagina);      
       quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
     }  
+
+    return fila;
 }
 
-void fifo_listagem()
+void fifo_listagem(Fila* fila)
 {
   Item* item;
   item = fila->inicio;
