@@ -19,20 +19,20 @@ typedef struct Pagina{
 } Pagina;
 
 //esta tabela nao sera usada para o fifo ou para o lru
-typedef struct tabela{
+typedef struct Tabela{
     unsigned int num_entradas;
     Pagina *paginas;
-} tabela;
+} Tabela;
 
-typedef struct quadro{
+typedef struct Quadro{
     unsigned int ultimo_acesso; //Os clocks podem ser considerados como a colocação da intrução lida
     unsigned int _carregamento; //O instante de carregamento para a memória
     int esta_na_memoria;//indica se o quadro esta na memoria ou nao
-} quadro;
+} Quadro;
 
 typedef struct StructItem{         
     Pagina pagina;         
-    struct StructItem *seguinte;       
+    struct StructItem *proximo;       
 } Item;
 
 typedef struct Fila{         
@@ -42,8 +42,8 @@ typedef struct Fila{
 } Fila;
 
 
-void inicializacao (Fila * sequencia);
+void inicializacao(Fila * sequencia);
 
-int inserir (Fila * sequencia, Item * atual, Pagina page);
+int inserir(Fila * sequencia, Item * atual, Pagina pagina);
 
-void exibir (Fila *sequencia);
+void exibir(Fila *sequencia);

@@ -20,15 +20,15 @@ int inserir (Fila * sequencia, Item * atual, Pagina pagina){
   if(atual == NULL){           
     if(sequencia->tamanho == 0)             
       sequencia->fim = novo_elemento;           
-    novo_elemento->seguinte = sequencia->inicio;           
+    novo_elemento->proximo = sequencia->inicio;           
     sequencia-> inicio = novo_elemento;         
   }
   else 
   {           
-    if(atual->seguinte == NULL)             
+    if(atual->proximo == NULL)             
       sequencia->fim = novo_elemento;           
-    novo_elemento->seguinte = atual->seguinte;           
-    atual-> seguinte = novo_elemento;         
+    novo_elemento->proximo = atual->proximo;           
+    atual-> proximo = novo_elemento;         
   }         
   sequencia->tamanho++;         
   return 0;       
@@ -40,7 +40,7 @@ int remover (Fila * sequencia){
   if (sequencia->tamanho == 0)           
     return -1;         
   remov_elemento = sequencia->inicio;         
-  sequencia-> inicio = sequencia->inicio->seguinte;
+  sequencia-> inicio = sequencia->inicio->proximo;
   if(remov_elemento == sequencia->fim)
     sequencia->fim = NULL;                   
   free (remov_elemento);         
@@ -55,6 +55,6 @@ void exibir (Fila *sequencia){
   atual = sequencia->inicio;         
   for(i=0;i<sequencia->tamanho;++i){           
     printf("numero da página: %u \n", atual->pagina.numero);           
-    atual = atual->seguinte;         
+    atual = atual->proximo;         
   }       
 }
