@@ -29,7 +29,8 @@ void main(int argc, char *argv[] ){
     nome_arquivo = argv[2];
     tamanho_paginas = atoi(argv[3]);
     tamanho_memoria = atoi(argv[4]);    
-    tamanho_tabela = tamanho_memoria/tamanho_paginas;           
+    tamanho_tabela = tamanho_memoria/tamanho_paginas;    
+    int tamanho_paginas_bytes = tamanho_paginas * pow(2, 10);       
 
     if(strcmp(nome_algoritmo, "lru") != 0 && strcmp(nome_algoritmo, "2a") != 0 && strcmp(nome_algoritmo, "fifo") != 0)
     {
@@ -49,9 +50,8 @@ void main(int argc, char *argv[] ){
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
     printf("Tamanho da tabela: %d KB\n", tamanho_tabela);
-    printf("Técnica de reposição: %s\n", nome_algoritmo);    
-
-    //inicializando estruturas para executar os algoritmos de substituicao
+    printf("Técnica de reposição: %s\n", nome_algoritmo);   
+    printf("Executando o simulador...\n");      
     
     Tabela tabela_nao_fifo; 
 
@@ -63,62 +63,49 @@ void main(int argc, char *argv[] ){
             tabela_nao_fifo.paginas[i].segunda_chance = 0;
         }
     }
-    
-    Quadro quadros_memoria[tamanho_tabela];//esta sera a estrutura responsavel por simular os quadros que estarao na memoria
-    //inicializo atributos dos quadros
+
+    char operacao;
+    unsigned int endereco;    
+    unsigned int contador = 0;
+    unsigned tamanho_paginas_bytes_aux;
+
+    tamanho_paginas_bytes_aux = tamanho_paginas_bytes;    
+    while (tamanho_paginas_bytes_aux > 1) {
+        tamanho_paginas_bytes_aux = tamanho_paginas_bytes_aux >> 1;
+        contador++;
+    }
+
+    contador = 32u - contador;
+           
+    int clock_cont = 1;
+
+    Quadro quadros_memoria[tamanho_tabela];
 
     for(i = 0; i < tamanho_tabela; i++){
         quadros_memoria[i].esta_na_memoria = 0;
     }
-    for(i = 0; i < tamanho_tabela; i++){
-        quadros_memoria[i].esta_na_memoria = 0;
-    }
 
-    unsigned int endereco;//endereco lido em uma linha do arquivo
-    char operacao;//operacao descrita em uma linha do arquivo
-    int tamPaginaBytes = tamanho_paginas * pow(2, 10); //tamanho da pagina em bytes
+    while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
 
-    //Pego o numero maximo de bits que podem ser usados para identificar as paginas(algoritmo retirado da especificacao deste trabalho) 
-    unsigned s, tmp;
-    tmp = tamPaginaBytes;
-    s = 0;
-    while (tmp>1) {
-        tmp = tmp>>1;
-        s++;
-    }
-    s = 32u - s;
-
-    printf("valor de s: %u\n", s);
-
-    unsigned int indice;
-    unsigned int miss = 0;
-    unsigned int hit = 0;
-    unsigned int escritas = 0;
-
-    printf("Executando o simulador...\n");  
-    
-    int contador_clock = 0;
-
-    while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){
-        contador_clock++;
-
-        unsigned int numero_pagina_acessada = endereco >> s;
+        unsigned int numero_pagina_acessada = endereco >> contador;
 
         if(strcmp(nome_algoritmo, "fifo") == 0)
-        {
-            Fila* fila = fifo_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);            
+        {            
+            Fila* fila = fifo_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao);            
             fifo_listagem(fila);
         }
-        else if(strcmp(nome_algoritmo, "lru") == 0){
-            lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
-        } else if(strcmp(nome_algoritmo, "2a") == 0)
+        else if(strcmp(nome_algoritmo, "lru") == 0)
+        {
+            lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria);
+        } 
+        else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
-            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, hit, endereco, operacao, contador_clock, miss, quadros_memoria, escritas);
+            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont);
             doisa_listagem(tabela, tamanho_tabela);
         }
-    }  
 
-    
+        clock_cont++;
+    }    
 
     if(strcmp(nome_algoritmo, "lru") == 0){
         int i_pagina;

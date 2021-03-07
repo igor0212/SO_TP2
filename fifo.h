@@ -1,5 +1,5 @@
 #include "estruturas.h"
 
-Fila* fifo_execucao(int total_paginas, int numero_pagina_acessada, int hit, unsigned int endereco, char operacao, int contador_clock, int miss, Quadro *quadros_memoria, int escritas);
+Fila* fifo_execucao(int tamanho_tabela, int numero_pagina_acessada, unsigned int endereco, char operacao);
 
 void fifo_listagem(Fila* fila);
