@@ -10,8 +10,7 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
     for(idx = 0; idx < tamanho_tabela; idx++)
     {
-        tabela.paginas[idx].quadro = -1;
-        tabela.paginas[idx].segunda_chance = 0;
+        tabela.paginas[idx].quadro = -1;        
     }    
     
     int pagina_esta_na_tabela = 0;
@@ -21,8 +20,7 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
       {        
         tabela.paginas[idx].ultimo_endereco_acessado = endereco;
         tabela.paginas[idx].suja = (operacao == 'W');
-        tabela.paginas[idx].ultimo_acesso = clock_cont;
-        tabela.paginas[idx].segunda_chance = 1;
+        tabela.paginas[idx].ultimo_acesso = clock_cont;        
         pagina_esta_na_tabela = 1;
         break;
       }
@@ -39,11 +37,6 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
             menor_ultimo_acesso = tabela.paginas[idx].ultimo_acesso;
             indice_quadro_a_inserir = idx;
           }          
-          
-          if((idx == tamanho_tabela - 1) && (tabela.paginas[indice_quadro_a_inserir].segunda_chance)){
-            tabela.paginas[indice_quadro_a_inserir].segunda_chance = 0;
-            idx = 0; 
-          }
         }        
       }
       
@@ -51,8 +44,7 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
       tabela.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
       tabela.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
       tabela.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
-      tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = clock_cont;
-      tabela.paginas[indice_quadro_a_inserir].segunda_chance = 0; 
+      tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = clock_cont;      
 
       return tabela;
     }
