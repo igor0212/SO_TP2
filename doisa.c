@@ -18,9 +18,9 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
     {      
       if(tabela.paginas[idx].numero == pagina_acesso)
       {        
-        tabela.paginas[idx].ultimo_endereco_acessado = endereco;
-        tabela.paginas[idx].suja = (operacao == 'W');
+        tabela.paginas[idx].ultimo_endereco_acessado = endereco;        
         tabela.paginas[idx].ultimo_acesso = clock_cont;        
+        tabela.paginas[idx].suja = operacao == 'W';
         pagina_tabela = 1;
         break;
       }
@@ -39,10 +39,10 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
           idx_inserir = idx;
         }          
       }      
-      
+
+      tabela.paginas[idx_inserir].suja = operacao == 'W';      
       tabela.paginas[idx_inserir].numero = pagina_acesso;
-      tabela.paginas[idx_inserir].quadro = idx_inserir;
-      tabela.paginas[idx_inserir].suja = (operacao == 'W');
+      tabela.paginas[idx_inserir].quadro = idx_inserir;      
       tabela.paginas[idx_inserir].ultimo_endereco_acessado = endereco;
       tabela.paginas[idx_inserir].ultimo_acesso = clock_cont;      
 
