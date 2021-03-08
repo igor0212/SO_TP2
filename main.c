@@ -31,6 +31,8 @@ void main(int argc, char *argv[] ){
     tamanho_memoria = atoi(argv[4]);    
     tamanho_tabela = tamanho_memoria/tamanho_paginas;    
     int tamanho_paginas_bytes = tamanho_paginas * pow(2, 10);       
+    int paginas_lidas = 0;
+    int paginas_escritas = 0;
 
     if( strcmp(nome_algoritmo, "lru") != 0 
         && strcmp(nome_algoritmo, "2a") != 0 
@@ -84,13 +86,12 @@ void main(int argc, char *argv[] ){
         quadros_memoria[i].esta_na_memoria = 0;
     }
 
+    printf("Executando o simulador...\n");
     printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
-    printf("Técnica de reposição: %s\n", nome_algoritmo);
-    printf("Paginas lidas: %d\n", contador);
-    printf("Paginas escritas: %d\n", tamanho_paginas_bytes_aux);  
-    printf("Tempo de execucao: %g ms. \n", (double)(clock() - inicio) * 1000.0 / CLOCKS_PER_SEC);
+    printf("Técnica de reposição: %s\n", nome_algoritmo);    
+    printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);
 
     printf("Tabela: \n\n");
 
@@ -100,24 +101,25 @@ void main(int argc, char *argv[] ){
 
         if(strcmp(nome_algoritmo, "fifo") == 0)
         {            
-            Fila* fila = fifo_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao);            
+            Fila* fila = fifo_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, &paginas_lidas, &paginas_escritas);            
             fifo_listagem(fila);
         }
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
-            lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria);
+            lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria, &paginas_lidas, &paginas_escritas);
             lru_listagem(tamanho_tabela, tabela_nao_fifo);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
-            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont);
+            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
             doisa_listagem(tabela, tamanho_tabela);
         }
 
         clock_cont++;
     }
 
-    
+    printf("Paginas lidas: %d\n", paginas_lidas);
+    printf("Paginas escritas: %d\n", paginas_escritas);      
 
     return;   
 }

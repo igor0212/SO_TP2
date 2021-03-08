@@ -2,7 +2,7 @@
 #include "fifo.h"
 #include "estruturas.h"
 
-Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao)
+Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int *paginas_lidas, int *paginas_escritas)
 {
     Fila *fila;
 
@@ -19,7 +19,8 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
     while(item != NULL)
     {      
       if(item->pagina.numero == pagina_acesso)
-      {        
+      { 
+        *paginas_escritas += 1;               
         item->pagina.ultimo_endereco_acessado = endereco;
         item->pagina.suja = operacao == 'W';
         pagina_fila = 1;
@@ -30,12 +31,13 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
     }
     
     if(!pagina_fila)
-    {
+    { 
+      *paginas_lidas += 1;      
       Pagina* pagina = (Pagina*) malloc(sizeof(Pagina));
       pagina->numero = pagina_acesso;    
       pagina->suja = (operacao == 'W');
       pagina->ultimo_endereco_acessado = endereco;
-      inserir(fila, fila->fim, *pagina);
+      inserir(fila, fila->fim, *pagina);      
     }  
 
     return fila;

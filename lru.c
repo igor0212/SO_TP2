@@ -1,12 +1,13 @@
 #include "lru.h"
 
-void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada,  unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria) {
+void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada,  unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria, int *paginas_lidas, int *paginas_escritas) {
       int i_pagina;
       int i;
 
       int pagina_esta_na_tabela = 0;
       for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
-        if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){          
+        if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){    
+          *paginas_escritas += 1;      
 
           tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado = endereco;
           tabela_nao_fifo.paginas[i_pagina].suja = (operacao == 'W');
@@ -18,6 +19,7 @@ void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada, 
       }
 
       if(!pagina_esta_na_tabela){
+        *paginas_lidas += 1;      
         int indice_quadro_a_inserir = -1;
         for(i = 0; i < total_paginas; i++){
           if(!quadros_memoria[i].esta_na_memoria){
