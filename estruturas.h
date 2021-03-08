@@ -5,13 +5,14 @@
 #include <math.h>
 #include <stdbool.h>
 
+#pragma once
+
 typedef struct Pagina{
     int quadro;
     unsigned int numero;
     unsigned int ultimo_endereco_acessado;
     int ultimo_acesso;
-    bool suja;
-    bool segunda_chance;
+    bool suja;    
 } Pagina;
 
 typedef struct Tabela{

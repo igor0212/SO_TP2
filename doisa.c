@@ -51,14 +51,12 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
 }
 
 void doisa_listagem(Tabela tabela, int tamanho_tabela)
-{
-  int idx;
-  for(idx = 0; idx < tamanho_tabela; idx++){            
-      if(tabela.paginas[idx].quadro != -1){
-          printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-              tabela.paginas[idx].numero, 
-              tabela.paginas[idx].ultimo_endereco_acessado, 
-              tabela.paginas[idx].suja);
+{  
+  for(idx = 0; idx < tamanho_tabela; idx++)
+  {            
+      if(tabela.paginas[idx].quadro != -1)
+      {
+          printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].suja ? "Sim" : "Não", tabela.paginas[idx].ultimo_endereco_acessado);
       }
   }
 }
