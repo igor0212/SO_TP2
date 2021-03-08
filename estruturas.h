@@ -36,6 +36,4 @@ typedef struct ListaDetectada{
 } Fila;
 
 
-int inserir (Fila * sequencia, Item * atual, Pagina page);
-
-int remover (Fila * sequencia);
+void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);

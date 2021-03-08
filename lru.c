@@ -1,6 +1,6 @@
 #include "lru.h"
 
-void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada,  unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria, int *paginas_lidas, int *paginas_escritas) {
+void lru_execucao(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada,  unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria, int *paginas_lidas, int *paginas_escritas) {
       int i_pagina;
       int i;
 

@@ -34,14 +34,14 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       item = item->proximo;
     }
     
-    if(!pagina_fila)
+    if(pagina_fila == 0)
     { 
       *paginas_lidas += 1;      
       Pagina* pagina = (Pagina*) malloc(sizeof(Pagina));
       pagina->numero = pagina_acesso;    
       pagina->suja = (operacao == 'W');
       pagina->ultimo_endereco_acessado = endereco;
-      inserir(fila, fila->fim, *pagina);      
+      adicionarItemFila(fila, fila->fim, *pagina);      
     }  
 
     return fila;
