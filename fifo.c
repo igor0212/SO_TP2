@@ -11,6 +11,10 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
         printf("Erro: Fila fifo não criada\n");
         exit(1);
     }
+
+    fila->inicio = NULL;         
+    fila->fim = NULL;         
+    fila->tamanho = 0;    
     
     Item* item;
     item = fila->inicio;
