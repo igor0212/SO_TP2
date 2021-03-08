@@ -55,7 +55,7 @@ void main(int argc, char *argv[] ){
     
     Tabela tabela_nao_fifo; 
 
-    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0 || strcmp(nome_algoritmo, "new") == 0)
+    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0)
     {
         tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
         for(i = 0; i < tamanho_tabela; i++){
