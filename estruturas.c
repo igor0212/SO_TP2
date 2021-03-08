@@ -1,11 +1,5 @@
 #include "estruturas.h"
 
-void inicializacao (Fila * sequencia){         
-  sequencia->inicio = NULL;         
-  sequencia->fim = NULL;         
-  sequencia->tamanho = 0;       
-}
-
 /* inserir (adicionar) um elemento na fila */       
 int inserir (Fila * sequencia, Item * atual, Pagina pagina){         
   Item *novo_elemento;         
@@ -46,15 +40,4 @@ int remover (Fila * sequencia){
   free (remov_elemento);         
   sequencia->tamanho--;         
   return 0;       
-}
-
-/* exibição da fila */       
-void exibir (Fila *sequencia){         
-  Item *atual;         
-  int i;         
-  atual = sequencia->inicio;         
-  for(i=0;i<sequencia->tamanho;++i){           
-    printf("numero da página: %u \n", atual->pagina.numero);           
-    atual = atual->proximo;         
-  }       
 }
