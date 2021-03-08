@@ -37,3 +37,5 @@ typedef struct ListaDetectada{
 
 
 int inserir (Fila * sequencia, Item * atual, Pagina page);
+
+int remover (Fila * sequencia);
