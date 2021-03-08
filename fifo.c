@@ -21,7 +21,7 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       if(item->pagina.numero == pagina_acesso)
       {        
         item->pagina.ultimo_endereco_acessado = endereco;
-        item->pagina.suja = (operacao == 'W');
+        item->pagina.suja = operacao == 'W';
         pagina_fila = 1;
         break;
       }
