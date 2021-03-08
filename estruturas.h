@@ -7,33 +7,37 @@
 
 #pragma once
 
-typedef struct Pagina{
-    int quadro;
+typedef struct Pagina
+{
+    int identificador;
     unsigned int numero;
-    unsigned int ultimo_endereco_acessado;
+    unsigned int endereco;
     int ultimo_acesso;
-    bool suja;    
+    bool bit_controle;    
 } Pagina;
 
-typedef struct Tabela{
-    unsigned int num_entradas;
+typedef struct Tabela{    
     Pagina *paginas;
 } Tabela;
 
-typedef struct Quadro{
+typedef struct Quadro
+{
     unsigned int ultimo_acesso;
     unsigned int _carregamento;
     bool esta_na_memoria;
 } Quadro;
 
-typedef struct StructItem{         
+typedef struct StructItem
+{         
     Pagina pagina;         
     struct StructItem *proximo;       
 } Item;
 
-typedef struct ListaDetectada{         
-    Item *inicio;  Item *fim;  int tamanho;       
+typedef struct Fila
+{         
+    Item *inicio;  
+    Item *fim;  
+    int tamanho;       
 } Fila;
-
 
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);
