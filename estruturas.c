@@ -1,6 +1,5 @@
 #include "estruturas.h"
 
-
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina)
 {         
   Item *item_novo;         
@@ -20,9 +19,9 @@ void adicionarItemFila(Fila *fila, Item *item, Pagina pagina)
   {           
     if(fila->tamanho == 0)     
     {
-      fila->fim = item_novo;           
-    
+      fila->fim = item_novo;               
     }        
+    
     item_novo->proximo = fila->inicio;           
     fila-> inicio = item_novo;         
   }
