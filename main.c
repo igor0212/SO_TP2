@@ -32,7 +32,10 @@ void main(int argc, char *argv[] ){
     tamanho_tabela = tamanho_memoria/tamanho_paginas;    
     int tamanho_paginas_bytes = tamanho_paginas * pow(2, 10);       
 
-    if(strcmp(nome_algoritmo, "lru") != 0 && strcmp(nome_algoritmo, "2a") != 0 && strcmp(nome_algoritmo, "fifo") != 0)
+    if( strcmp(nome_algoritmo, "lru") != 0 
+        && strcmp(nome_algoritmo, "2a") != 0 
+        && strcmp(nome_algoritmo, "fifo") != 0
+    )
     {
         printf("Error: Algoritmo %s desconhecido.\n", nome_algoritmo);
         return;
@@ -46,16 +49,13 @@ void main(int argc, char *argv[] ){
         return;
     }
 
-    printf("Arquivo de entrada: %s\n", nome_arquivo);
-    printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
-    printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
-    printf("Tamanho da tabela: %d KB\n", tamanho_tabela);
-    printf("Técnica de reposição: %s\n", nome_algoritmo);   
-    printf("Executando o simulador...\n");      
+    printf("Executando o simulador...\n");     
+   
     
     Tabela tabela_nao_fifo; 
 
-    if(strcmp(nome_algoritmo, "lru") == 0 || strcmp(nome_algoritmo, "2a") == 0)
+    if( strcmp(nome_algoritmo, "lru") == 0 || 
+        strcmp(nome_algoritmo, "2a") == 0)
     {
         tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
         for(i = 0; i < tamanho_tabela; i++){
@@ -84,6 +84,16 @@ void main(int argc, char *argv[] ){
         quadros_memoria[i].esta_na_memoria = 0;
     }
 
+    printf("Arquivo de entrada: %s\n", nome_arquivo);
+    printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
+    printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
+    printf("Técnica de reposição: %s\n", nome_algoritmo);
+    printf("Paginas lidas: %d\n", contador);
+    printf("Paginas escritas: %d\n", tamanho_paginas_bytes_aux);  
+    printf("Tempo de execucao: %g ms. \n", (double)(clock() - inicio) * 1000.0 / CLOCKS_PER_SEC);
+
+    printf("Tabela: \n\n");
+
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
 
         unsigned int numero_pagina_acessada = endereco >> contador;
@@ -96,6 +106,7 @@ void main(int argc, char *argv[] ){
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
             lru(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria);
+            lru_listagem(tamanho_tabela, tabela_nao_fifo);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
@@ -104,21 +115,9 @@ void main(int argc, char *argv[] ){
         }
 
         clock_cont++;
-    }    
+    }
 
-    if(strcmp(nome_algoritmo, "lru") == 0){
-        int i_pagina;
-        for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){            
-            if(tabela_nao_fifo.paginas[i_pagina].quadro != -1){
-                printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-                    tabela_nao_fifo.paginas[i_pagina].numero, 
-                    tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado, 
-                    tabela_nao_fifo.paginas[i_pagina].suja ? 1 : 0);
-            }
-        }
-    }        
-
-    printf("Tempo de execucao: %g ms. \n", (double)(clock() - inicio) * 1000.0 / CLOCKS_PER_SEC);
+    
 
     return;   
 }

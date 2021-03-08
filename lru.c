@@ -44,3 +44,15 @@ void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada, 
         quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
       }
 }
+
+void lru_listagem(int tamanho_tabela, Tabela tabela_nao_fifo){
+  int i_pagina;
+  for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){            
+      if(tabela_nao_fifo.paginas[i_pagina].quadro != -1){
+          printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
+              tabela_nao_fifo.paginas[i_pagina].numero, 
+              tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado, 
+              tabela_nao_fifo.paginas[i_pagina].suja ? 1 : 0);
+      }
+  }
+}
