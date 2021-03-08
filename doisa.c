@@ -4,7 +4,7 @@
 
 int idx;
 
-Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned int endereco, char operacao, int clock_cont)
+Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int endereco, char operacao, int clock_cont)
 {    
     Tabela tabela;
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
@@ -13,52 +13,50 @@ Tabela doisa_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned 
         tabela.paginas[idx].quadro = -1;        
     }    
     
-    int pagina_esta_na_tabela = 0;
-    for(idx = 0; idx < tamanho_tabela; idx++){
-      
-      if(tabela.paginas[idx].numero == numero_pagina_acessada)
+    int pagina_tabela = 0;
+    for(idx = 0; idx < tamanho_tabela; idx++)
+    {      
+      if(tabela.paginas[idx].numero == pagina_acesso)
       {        
         tabela.paginas[idx].ultimo_endereco_acessado = endereco;
         tabela.paginas[idx].suja = (operacao == 'W');
         tabela.paginas[idx].ultimo_acesso = clock_cont;        
-        pagina_esta_na_tabela = 1;
+        pagina_tabela = 1;
         break;
       }
     }
     
-    if(!pagina_esta_na_tabela){        
-      int indice_quadro_a_inserir = -1;      
-      
-      if(indice_quadro_a_inserir == -1){        
-        int menor_ultimo_acesso = -1;
-        for(idx = 0; idx < tamanho_tabela; idx++){
+    if(pagina_tabela == 0)
+    {    
+      int idx_inserir = -1;
+      int auxiliar_minimo = -1;
 
-          if(tabela.paginas[idx].ultimo_acesso < menor_ultimo_acesso){
-            menor_ultimo_acesso = tabela.paginas[idx].ultimo_acesso;
-            indice_quadro_a_inserir = idx;
-          }          
-        }        
-      }
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+        if(tabela.paginas[idx].ultimo_acesso < auxiliar_minimo)
+        {
+          auxiliar_minimo = tabela.paginas[idx].ultimo_acesso;
+          idx_inserir = idx;
+        }          
+      }      
       
-      tabela.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
-      tabela.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
-      tabela.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
-      tabela.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
-      tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = clock_cont;      
+      tabela.paginas[idx_inserir].numero = pagina_acesso;
+      tabela.paginas[idx_inserir].quadro = idx_inserir;
+      tabela.paginas[idx_inserir].suja = (operacao == 'W');
+      tabela.paginas[idx_inserir].ultimo_endereco_acessado = endereco;
+      tabela.paginas[idx_inserir].ultimo_acesso = clock_cont;      
 
       return tabela;
     }
 }
 
 void doisa_listagem(Tabela tabela, int tamanho_tabela)
-{
-  int idx;
-  for(idx = 0; idx < tamanho_tabela; idx++){            
-      if(tabela.paginas[idx].quadro != -1){
-          printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-              tabela.paginas[idx].numero, 
-              tabela.paginas[idx].ultimo_endereco_acessado, 
-              tabela.paginas[idx].suja);
+{  
+  for(idx = 0; idx < tamanho_tabela; idx++)
+  {            
+      if(tabela.paginas[idx].quadro != -1)
+      {
+          printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].suja ? "Sim" : "Não", tabela.paginas[idx].ultimo_endereco_acessado);
       }
   }
 }

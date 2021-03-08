@@ -59,8 +59,7 @@ void main(int argc, char *argv[] ){
     {
         tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
         for(i = 0; i < tamanho_tabela; i++){
-            tabela_nao_fifo.paginas[i].quadro = -1;
-            tabela_nao_fifo.paginas[i].segunda_chance = 0;
+            tabela_nao_fifo.paginas[i].quadro = -1;            
         }
     }
 
