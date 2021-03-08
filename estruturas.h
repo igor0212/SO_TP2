@@ -4,40 +4,29 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
-
 #pragma once
-
-typedef struct Pagina
-{
+typedef struct Pagina{
     int identificador;
     unsigned int numero;
-    unsigned int endereco;
+    unsigned int ultimo_endereco_acessado;
     int ultimo_acesso;
-    bool bit_controle;    
+    bool suja;    
 } Pagina;
-
-typedef struct Tabela{    
+typedef struct Tabela{
+    unsigned int num_entradas;
     Pagina *paginas;
 } Tabela;
-
-typedef struct Quadro
-{
+typedef struct Quadro{
     unsigned int ultimo_acesso;
     unsigned int _carregamento;
     bool esta_na_memoria;
 } Quadro;
-
-typedef struct StructItem
-{         
+typedef struct StructItem{         
     Pagina pagina;         
     struct StructItem *proximo;       
 } Item;
-
-typedef struct Fila
-{         
-    Item *inicio;  
-    Item *fim;  
-    int tamanho;       
+typedef struct ListaDetectada{         
+    Item *inicio;  Item *fim;  int tamanho;       
 } Fila;
 
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);
