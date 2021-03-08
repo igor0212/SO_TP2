@@ -3,3 +3,4 @@ doisa.o
 estruturas.o
 fifo.o
 lru.o
+main.o
