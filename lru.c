@@ -9,19 +9,16 @@ Tabela lru_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned in
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
           tabela.paginas[idx].id = -1;        
-      }    
-
-      int i_pagina;
-      int i;
+      }          
 
       int pagina_esta_na_tabela = 0;
-      for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){
-        if(tabela.paginas[i_pagina].numero == numero_pagina_acessada){    
+      for(idx = 0; idx < tamanho_tabela; idx++){
+        if(tabela.paginas[idx].numero == numero_pagina_acessada){    
           *paginas_escritas += 1;      
 
-          tabela.paginas[i_pagina].endereco_acessado = endereco;
-          tabela.paginas[i_pagina].bit_controle = (operacao == 'W');
-          tabela.paginas[i_pagina].ultimo_acesso = contador_clock;
+          tabela.paginas[idx].endereco_acessado = endereco;
+          tabela.paginas[idx].bit_controle = (operacao == 'W');
+          tabela.paginas[idx].ultimo_acesso = contador_clock;
 
           pagina_esta_na_tabela = 1;
           break;
@@ -31,18 +28,18 @@ Tabela lru_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned in
       if(!pagina_esta_na_tabela){
         *paginas_lidas += 1;      
         int indice_quadro_a_inserir = -1;
-        for(i = 0; i < tamanho_tabela; i++){
-          if(!quadros_memoria[i].esta_na_memoria){
-            indice_quadro_a_inserir = i;
+        for(idx = 0; idx < tamanho_tabela; idx++){
+          if(!quadros_memoria[idx].esta_na_memoria){
+            indice_quadro_a_inserir = idx;
             break;
           }
         }
         if(indice_quadro_a_inserir == -1){
           int menor_ultimo_acesso = -1;
-          for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){
-            if(tabela.paginas[i_pagina].ultimo_acesso < menor_ultimo_acesso){
-              menor_ultimo_acesso = tabela.paginas[i_pagina].ultimo_acesso;
-              indice_quadro_a_inserir = i_pagina;
+          for(idx = 0; idx < tamanho_tabela; idx++){
+            if(tabela.paginas[idx].ultimo_acesso < menor_ultimo_acesso){
+              menor_ultimo_acesso = tabela.paginas[idx].ultimo_acesso;
+              indice_quadro_a_inserir = idx;
             }
           }          
         }
