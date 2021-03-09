@@ -2,14 +2,21 @@
 
 int idx;
 
-Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria, int *paginas_lidas, int *paginas_escritas) 
+Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador_clock, int *paginas_lidas, int *paginas_escritas) 
 {
       Tabela tabela;
       tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
           tabela.paginas[idx].id = -1;        
-      }          
+      }      
+
+      Quadro quadros_memoria[tamanho_tabela];
+
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+          quadros_memoria[idx].esta_na_memoria = 0;
+      }    
 
       int pagina_tabela = 0;
       for(idx = 0; idx < tamanho_tabela; idx++)
