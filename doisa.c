@@ -19,7 +19,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
       if(tabela.paginas[idx].numero == pagina_acesso)
       {     
         *paginas_escritas+=1;
-        tabela.paginas[idx].ultimo_endereco_acessado = endereco;        
+        tabela.paginas[idx].endereco_acessado = endereco;        
         tabela.paginas[idx].ultimo_acesso = clock_cont;        
         tabela.paginas[idx].bit_controle = operacao == 'W';
         pagina_tabela = 1;
@@ -45,7 +45,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
       tabela.paginas[idx_inserir].bit_controle = operacao == 'W';      
       tabela.paginas[idx_inserir].numero = pagina_acesso;
       tabela.paginas[idx_inserir].identificador = idx_inserir;      
-      tabela.paginas[idx_inserir].ultimo_endereco_acessado = endereco;
+      tabela.paginas[idx_inserir].endereco_acessado = endereco;
       tabela.paginas[idx_inserir].ultimo_acesso = clock_cont;      
 
       return tabela;
@@ -58,7 +58,7 @@ void doisa_listagem(Tabela tabela, int tamanho_tabela)
   {            
       if(tabela.paginas[idx].identificador != -1)
       {
-          printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].bit_controle ? "Sim" : "Não", tabela.paginas[idx].ultimo_endereco_acessado);
+          printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].bit_controle ? "Sim" : "Não", tabela.paginas[idx].endereco_acessado);
       }
   }
 }

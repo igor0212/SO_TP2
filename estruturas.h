@@ -11,7 +11,7 @@ typedef struct Pagina
 {
     int identificador;
     unsigned int numero;
-    unsigned int ultimo_endereco_acessado;
+    unsigned int endereco_acessado;
     int ultimo_acesso;
     bool bit_controle;    
 } Pagina;
