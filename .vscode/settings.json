@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "structures.h": "c",
-        "2a.h": "c"
+        "2a.h": "c",
+        "estruturas.h": "c"
     }
 }

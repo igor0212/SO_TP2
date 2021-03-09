@@ -1,8 +1,6 @@
-#include <stdio.h>
 #include "fifo.h"
-#include "estruturas.h"
 
-Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao)
+Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int *paginas_lidas, int *paginas_escritas)
 {
     Fila *fila;
 
@@ -23,9 +21,10 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
     while(item != NULL)
     {      
       if(item->pagina.numero == pagina_acesso)
-      {        
-        item->pagina.ultimo_endereco_acessado = endereco;
-        item->pagina.suja = operacao == 'W';
+      { 
+        *paginas_escritas += 1;               
+        item->pagina.endereco_acessado = endereco;
+        item->pagina.bit_controle = operacao == 'W';
         pagina_fila = 1;
         break;
       }
@@ -33,13 +32,20 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       item = item->proximo;
     }
     
-    if(!pagina_fila)
-    {
+    if(pagina_fila == 0)
+    { 
+      *paginas_lidas += 1;      
       Pagina* pagina = (Pagina*) malloc(sizeof(Pagina));
+      if (pagina == NULL)           
+      {
+          printf("Erro: Pagina não criada\n");
+          exit(1);
+      }
+
       pagina->numero = pagina_acesso;    
-      pagina->suja = (operacao == 'W');
-      pagina->ultimo_endereco_acessado = endereco;
-      inserir(fila, fila->fim, *pagina);
+      pagina->bit_controle = operacao == 'W';
+      pagina->endereco_acessado = endereco;
+      adicionarItemFila(fila, fila->fim, *pagina);      
     }  
 
     return fila;
@@ -52,7 +58,9 @@ void fifo_listagem(Fila* fila)
 
   while(item != NULL)
   {      
-      printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", item->pagina.numero, item->pagina.suja ? "Sim" : "Não", item->pagina.ultimo_endereco_acessado);
+      if(item->pagina.numero != 0 && item->pagina.endereco_acessado != 0)
+
+      printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", item->pagina.numero, item->pagina.endereco_acessado, item->pagina.bit_controle ? "Sim" : "Não");      
       item = item->proximo;
   }
 }

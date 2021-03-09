@@ -1,41 +1,41 @@
-#include <time.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdbool.h>
 
 #pragma once
 
-typedef struct Pagina{
-    int quadro;
+typedef struct ItemMemoria
+{
+    bool existe;
+    unsigned int ultimo_acesso;
+} ItemMemoria;
+
+typedef struct Pagina
+{
+    int id;
     unsigned int numero;
-    unsigned int ultimo_endereco_acessado;
+    unsigned int endereco_acessado;
     int ultimo_acesso;
-    bool suja;    
+    bool bit_controle;    
 } Pagina;
 
-typedef struct Tabela{
-    unsigned int num_entradas;
-    Pagina *paginas;
-} Tabela;
-
-typedef struct Quadro{
-    unsigned int ultimo_acesso;
-    unsigned int _carregamento;
-    bool esta_na_memoria;
-} Quadro;
-
-typedef struct StructItem{         
+typedef struct StructItem
+{         
     Pagina pagina;         
     struct StructItem *proximo;       
 } Item;
 
-typedef struct ListaDetectada{         
-    Item *inicio;  Item *fim;  int tamanho;       
+typedef struct Fila
+{         
+    Item *inicio;
+    Item *fim;
+    int tamanho;       
 } Fila;
 
+typedef struct Tabela
+{
+    unsigned int num_entradas;
+    Pagina *paginas;
+} Tabela;
 
-int inserir (Fila * sequencia, Item * atual, Pagina page);
-
-int remover (Fila * sequencia);
+void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);

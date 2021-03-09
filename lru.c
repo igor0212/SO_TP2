@@ -1,58 +1,80 @@
 #include "lru.h"
 
-void lru(int total_paginas, Tabela tabela_nao_fifo, int numero_pagina_acessada,  unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria) {
-      int i_pagina;
-      int i;
+int idx;
 
-      int pagina_esta_na_tabela = 0;
-      for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
-        if(tabela_nao_fifo.paginas[i_pagina].numero == numero_pagina_acessada){          
+Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador_clock, int *paginas_lidas, int *paginas_escritas) 
+{
+      Tabela tabela;
+      tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+          tabela.paginas[idx].id = -1;        
+      }      
 
-          tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado = endereco;
-          tabela_nao_fifo.paginas[i_pagina].suja = (operacao == 'W');
-          tabela_nao_fifo.paginas[i_pagina].ultimo_acesso = contador_clock;
+      ItemMemoria itens_memoria[tamanho_tabela];
 
-          pagina_esta_na_tabela = 1;
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+          itens_memoria[idx].existe = false;
+      }    
+
+      int pagina_tabela = 0;
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+        if(tabela.paginas[idx].numero == pagina_acesso)
+        {    
+          *paginas_escritas += 1;
+          tabela.paginas[idx].endereco_acessado = endereco;
+          tabela.paginas[idx].bit_controle = (operacao == 'W');
+          tabela.paginas[idx].ultimo_acesso = contador_clock;
+          pagina_tabela = 1;
           break;
         }
       }
 
-      if(!pagina_esta_na_tabela){
-        int indice_quadro_a_inserir = -1;
-        for(i = 0; i < total_paginas; i++){
-          if(!quadros_memoria[i].esta_na_memoria){
-            indice_quadro_a_inserir = i;
+      if(pagina_tabela == 0)
+      {
+        *paginas_lidas += 1;      
+        int idx_inserir = -1;
+
+        for(idx = 0; idx < tamanho_tabela; idx++)
+        {
+          if(!itens_memoria[idx].existe)
+          {
+            idx_inserir = idx;
             break;
           }
         }
-        if(indice_quadro_a_inserir == -1){
-          int menor_ultimo_acesso = -1;
-          for(i_pagina = 0; i_pagina < total_paginas; i_pagina++){
-            if(tabela_nao_fifo.paginas[i_pagina].ultimo_acesso < menor_ultimo_acesso){
-              menor_ultimo_acesso = tabela_nao_fifo.paginas[i_pagina].ultimo_acesso;
-              indice_quadro_a_inserir = i_pagina;
+
+        if(idx_inserir == -1)
+        {
+          int auxiliar_minimo = -1;
+          for(idx = 0; idx < tamanho_tabela; idx++)
+          {
+            if(tabela.paginas[idx].ultimo_acesso < auxiliar_minimo){
+              auxiliar_minimo = tabela.paginas[idx].ultimo_acesso;
+              idx_inserir = idx;
             }
           }          
         }
-
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
-
-        quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
+        
+        tabela.paginas[idx_inserir].ultimo_acesso = contador_clock;  
+        tabela.paginas[idx_inserir].numero = pagina_acesso;
+        tabela.paginas[idx_inserir].id = idx_inserir;        
+        tabela.paginas[idx_inserir].endereco_acessado = endereco;
+        tabela.paginas[idx_inserir].bit_controle = operacao == 'W';             
       }
+
+      return tabela;
 }
 
-void lru_listagem(int tamanho_tabela, Tabela tabela_nao_fifo){
-  int i_pagina;
-  for(i_pagina = 0; i_pagina < tamanho_tabela; i_pagina++){            
-      if(tabela_nao_fifo.paginas[i_pagina].quadro != -1){
-          printf("Numero da pagina: %u | Ultimo endereco acessado: %u | bit de controle(pagina suja): %d\n",
-              tabela_nao_fifo.paginas[i_pagina].numero, 
-              tabela_nao_fifo.paginas[i_pagina].ultimo_endereco_acessado, 
-              tabela_nao_fifo.paginas[i_pagina].suja ? 1 : 0);
+void lru_listagem(Tabela tabela, int tamanho_tabela)
+{  
+  for(idx = 0; idx < tamanho_tabela; idx++)
+  {            
+      if(tabela.paginas[idx].id != -1)
+      {
+          printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", tabela.paginas[idx].numero, tabela.paginas[idx].endereco_acessado, tabela.paginas[idx].bit_controle ? "Sim" : "Não");
       }
   }
 }
