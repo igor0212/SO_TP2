@@ -8,7 +8,7 @@ typedef struct Pagina
 {
     int id;
     unsigned int numero;
-    unsigned int ultimo_endereco_acessado;
+    unsigned int endereco_acessado;
     int ultimo_acesso;
     bool suja;    
 } Pagina;

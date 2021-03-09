@@ -25,7 +25,7 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       if(item->pagina.numero == pagina_acesso)
       { 
         *paginas_escritas += 1;               
-        item->pagina.ultimo_endereco_acessado = endereco;
+        item->pagina.endereco_acessado = endereco;
         item->pagina.suja = operacao == 'W';
         pagina_fila = 1;
         break;
@@ -40,7 +40,7 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       Pagina* pagina = (Pagina*) malloc(sizeof(Pagina));
       pagina->numero = pagina_acesso;    
       pagina->suja = (operacao == 'W');
-      pagina->ultimo_endereco_acessado = endereco;
+      pagina->endereco_acessado = endereco;
       adicionarItemFila(fila, fila->fim, *pagina);      
     }  
 
@@ -54,7 +54,7 @@ void fifo_listagem(Fila* fila)
 
   while(item != NULL)
   {      
-      printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", item->pagina.numero, item->pagina.suja ? "Sim" : "Não", item->pagina.ultimo_endereco_acessado);
+      printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", item->pagina.numero, item->pagina.suja ? "Sim" : "Não", item->pagina.endereco_acessado);
       item = item->proximo;
   }
 }
