@@ -70,8 +70,7 @@ void main(int argc, char *argv[] ){
     printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
-    printf("Técnica de reposição: %s\n", nome_algoritmo);    
-    printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);
+    printf("Técnica de reposição: %s\n", nome_algoritmo);        
     printf("Tabela: \n");    
 
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
@@ -103,7 +102,8 @@ void main(int argc, char *argv[] ){
     }
 
     printf("Paginas lidas: %d\n", paginas_lidas);
-    printf("Paginas escritas: %d\n", paginas_escritas);         
+    printf("Paginas escritas: %d\n", paginas_escritas);  
+    printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);       
 
     return;   
 }
