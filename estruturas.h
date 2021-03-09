@@ -14,7 +14,7 @@ typedef struct Pagina
 {
     int id;
     unsigned int numero;
-    unsigned int endereco_acessado;
+    unsigned int endereco_acessado;    
     int ultimo_acesso;
     bool bit_controle;    
 } Pagina;
@@ -33,8 +33,7 @@ typedef struct Fila
 } Fila;
 
 typedef struct Tabela
-{
-    unsigned int num_entradas;
+{    
     Pagina *paginas;
 } Tabela;
 

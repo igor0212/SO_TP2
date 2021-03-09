@@ -2,6 +2,8 @@
     "files.associations": {
         "structures.h": "c",
         "2a.h": "c",
-        "estruturas.h": "c"
+        "estruturas.h": "c",
+        "segundachance.h": "c",
+        "lru.h": "c"
     }
 }

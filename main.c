@@ -1,7 +1,7 @@
 #include <string.h>
 #include "estruturas.h"
 #include "fifo.h"
-#include "doisa.h"
+#include "segundachance.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
@@ -70,7 +70,7 @@ void main(int argc, char *argv[] ){
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
     printf("Técnica de reposição: %s\n", nome_algoritmo);    
     printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);
-    printf("Tabela: \n");
+    printf("Tabela: \n");    
 
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
 
@@ -88,15 +88,15 @@ void main(int argc, char *argv[] ){
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
-            Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            doisa_listagem(tabela, tamanho_tabela);
+            Tabela tabela = segundachance_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
+            segundachance_listagem(tabela, tamanho_tabela);
         }
 
         clock_cont++;
     }
 
     printf("Paginas lidas: %d\n", paginas_lidas);
-    printf("Paginas escritas: %d\n", paginas_escritas);      
+    printf("Paginas escritas: %d\n", paginas_escritas);         
 
     return;   
 }
