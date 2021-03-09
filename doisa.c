@@ -2,7 +2,7 @@
 
 int idx;
 
-Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int endereco, char operacao, int clock_cont, int *paginas_lidas, int *paginas_escritas)
+Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int clock_cont, int *paginas_lidas, int *paginas_escritas)
 {    
     Tabela tabela;
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
