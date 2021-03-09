@@ -4,6 +4,12 @@
 
 #pragma once
 
+typedef struct ItemMemoria
+{
+    bool existe;
+    unsigned int ultimo_acesso;
+} ItemMemoria;
+
 typedef struct Pagina
 {
     int id;
@@ -31,12 +37,5 @@ typedef struct Tabela
     unsigned int num_entradas;
     Pagina *paginas;
 } Tabela;
-
-typedef struct Quadro
-{
-    unsigned int ultimo_acesso;
-    unsigned int _carregamento;
-    bool esta_na_memoria;
-} Quadro;
 
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);

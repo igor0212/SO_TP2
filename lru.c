@@ -11,11 +11,11 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
           tabela.paginas[idx].id = -1;        
       }      
 
-      Quadro quadros_memoria[tamanho_tabela];
+      ItemMemoria quadros_memoria[tamanho_tabela];
 
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
-          quadros_memoria[idx].esta_na_memoria = 0;
+          quadros_memoria[idx].existe = false;
       }    
 
       int pagina_tabela = 0;
@@ -38,7 +38,7 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
         int indice_quadro_a_inserir = -1;
         for(idx = 0; idx < tamanho_tabela; idx++)
         {
-          if(!quadros_memoria[idx].esta_na_memoria)
+          if(!quadros_memoria[idx].existe)
           {
             indice_quadro_a_inserir = idx;
             break;
@@ -62,7 +62,7 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
         tabela.paginas[indice_quadro_a_inserir].endereco_acessado = endereco;
         tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
 
-        quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
+        quadros_memoria[indice_quadro_a_inserir].existe = true;
       }
 
       return tabela;
