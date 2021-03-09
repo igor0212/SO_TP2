@@ -106,8 +106,8 @@ void main(int argc, char *argv[] ){
         }
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
-            lru_execucao(tamanho_tabela, tabela_nao_fifo, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria, &paginas_lidas, &paginas_escritas);
-            lru_listagem(tamanho_tabela, tabela_nao_fifo);
+            Tabela tabela = lru_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria, &paginas_lidas, &paginas_escritas);
+            lru_listagem(tabela, tamanho_tabela);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
