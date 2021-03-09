@@ -2,6 +2,7 @@
 #include "estruturas.h"
 #include "fifo.h"
 #include "segundachance.h"
+#include "media.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
