@@ -13,7 +13,7 @@ void adicionarItemFila(Fila *fila, Item *item, Pagina pagina)
   item_novo->pagina.numero = pagina.numero;
   item_novo->pagina.id = pagina.id;
   item_novo->pagina.endereco_acessado = pagina.endereco_acessado;
-  item_novo->pagina.suja = pagina.suja;
+  item_novo->pagina.bit_controle = pagina.bit_controle;
           
   if(item == NULL)
   {           

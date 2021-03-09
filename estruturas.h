@@ -10,7 +10,7 @@ typedef struct Pagina
     unsigned int numero;
     unsigned int endereco_acessado;
     int ultimo_acesso;
-    bool suja;    
+    bool bit_controle;    
 } Pagina;
 
 typedef struct StructItem
