@@ -10,7 +10,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
     for(idx = 0; idx < tamanho_tabela; idx++)
     {
-        tabela.paginas[idx].quadro = -1;        
+        tabela.paginas[idx].id = -1;        
     }    
     
     int pagina_tabela = 0;
@@ -44,7 +44,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
 
       tabela.paginas[idx_inserir].suja = operacao == 'W';      
       tabela.paginas[idx_inserir].numero = pagina_acesso;
-      tabela.paginas[idx_inserir].quadro = idx_inserir;      
+      tabela.paginas[idx_inserir].id = idx_inserir;      
       tabela.paginas[idx_inserir].ultimo_endereco_acessado = endereco;
       tabela.paginas[idx_inserir].ultimo_acesso = clock_cont;      
 
@@ -56,7 +56,7 @@ void doisa_listagem(Tabela tabela, int tamanho_tabela)
 {  
   for(idx = 0; idx < tamanho_tabela; idx++)
   {            
-      if(tabela.paginas[idx].quadro != -1)
+      if(tabela.paginas[idx].id != -1)
       {
           printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].suja ? "Sim" : "Não", tabela.paginas[idx].ultimo_endereco_acessado);
       }

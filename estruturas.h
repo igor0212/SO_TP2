@@ -6,7 +6,7 @@
 
 typedef struct Pagina
 {
-    int quadro;
+    int id;
     unsigned int numero;
     unsigned int ultimo_endereco_acessado;
     int ultimo_acesso;

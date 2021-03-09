@@ -9,7 +9,7 @@ Tabela lru_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned in
       tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
-          tabela_nao_fifo.paginas[idx].quadro = -1;        
+          tabela_nao_fifo.paginas[idx].id = -1;        
       }    
 
       int i_pagina;
@@ -49,7 +49,7 @@ Tabela lru_execucao(int tamanho_tabela, int numero_pagina_acessada,  unsigned in
         }
 
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].numero = numero_pagina_acessada;
-        tabela_nao_fifo.paginas[indice_quadro_a_inserir].quadro = indice_quadro_a_inserir;
+        tabela_nao_fifo.paginas[indice_quadro_a_inserir].id = indice_quadro_a_inserir;
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].suja = (operacao == 'W');
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_endereco_acessado = endereco;
         tabela_nao_fifo.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
@@ -64,7 +64,7 @@ void lru_listagem(Tabela tabela, int tamanho_tabela)
 {  
   for(idx = 0; idx < tamanho_tabela; idx++)
   {            
-      if(tabela.paginas[idx].quadro != -1)
+      if(tabela.paginas[idx].id != -1)
       {
           printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].suja ? "Sim" : "Não", tabela.paginas[idx].ultimo_endereco_acessado);
       }
