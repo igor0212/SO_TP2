@@ -31,10 +31,10 @@ typedef struct Tabela
     Pagina *paginas;
 } Tabela;
 
-typedef struct Quadro
+typedef struct ItemMemoria
 {
-    unsigned int ultimo_acesso;    
-    bool esta_na_memoria;
-} Quadro;
+    bool existe;
+    unsigned int ultimo_acesso;        
+} ItemMemoria;
 
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);

@@ -11,11 +11,11 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
           tabela.paginas[idx].id = -1;        
       }     
 
-      Quadro quadros_memoria[tamanho_tabela];
+      ItemMemoria itens_memoria[tamanho_tabela];
 
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
-          quadros_memoria[idx].esta_na_memoria = 0;
+          itens_memoria[idx].existe = 0;
       }     
 
       int pagina_tabela = 0;
@@ -35,16 +35,16 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
       if(pagina_tabela == 0)
       {
         *paginas_lidas += 1;      
-        int indice_quadro_a_inserir = -1;
+        int idx_item_inserir = -1;
         for(idx = 0; idx < tamanho_tabela; idx++)
         {
-          if(!quadros_memoria[idx].esta_na_memoria)
+          if(!itens_memoria[idx].existe)
           {
-            indice_quadro_a_inserir = idx;
+            idx_item_inserir = idx;
             break;
           }
         }
-        if(indice_quadro_a_inserir == -1)
+        if(idx_item_inserir == -1)
         {
           int menor_ultimo_acesso = -1;
           for(idx = 0; idx < tamanho_tabela; idx++)
@@ -52,18 +52,18 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
             if(tabela.paginas[idx].ultimo_acesso < menor_ultimo_acesso)
             {
               menor_ultimo_acesso = tabela.paginas[idx].ultimo_acesso;
-              indice_quadro_a_inserir = idx;
+              idx_item_inserir = idx;
             }
           }          
         }
 
-        tabela.paginas[indice_quadro_a_inserir].numero = pagina_acesso;
-        tabela.paginas[indice_quadro_a_inserir].id = indice_quadro_a_inserir;
-        tabela.paginas[indice_quadro_a_inserir].bit_controle = (operacao == 'W');
-        tabela.paginas[indice_quadro_a_inserir].endereco_acessado = endereco;
-        tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = contador;
+        tabela.paginas[idx_item_inserir].numero = pagina_acesso;
+        tabela.paginas[idx_item_inserir].id = idx_item_inserir;
+        tabela.paginas[idx_item_inserir].bit_controle = (operacao == 'W');
+        tabela.paginas[idx_item_inserir].endereco_acessado = endereco;
+        tabela.paginas[idx_item_inserir].ultimo_acesso = contador;
 
-        quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
+        itens_memoria[idx_item_inserir].existe = 1;
       }
 
       return tabela;
