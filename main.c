@@ -2,6 +2,7 @@
 #include "estruturas.h"
 #include "fifo.h"
 #include "doisa.h"
+#include "media.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
@@ -35,6 +36,7 @@ void main(int argc, char *argv[] ){
     if( strcmp(nome_algoritmo, "lru") != 0 
         && strcmp(nome_algoritmo, "2a") != 0 
         && strcmp(nome_algoritmo, "fifo") != 0
+        && strcmp(nome_algoritmo, "media") != 0
     )
     {
         printf("Error: Algoritmo %s desconhecido.\n", nome_algoritmo);
@@ -90,6 +92,11 @@ void main(int argc, char *argv[] ){
         {  
             Tabela tabela = doisa_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
             doisa_listagem(tabela, tamanho_tabela);
+        }
+        else if(strcmp(nome_algoritmo, "media") == 0)
+        {  
+            Tabela tabela = media_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
+            media_listagem(tabela, tamanho_tabela);
         }
 
         clock_cont++;

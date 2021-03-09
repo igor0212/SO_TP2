@@ -41,11 +41,11 @@ Também vinculado a essas estruturas temos a função inserir e remover para man
 Optamos por dividir os algoritimos de substituição em diferentes arquivos a fim de obter um código
 mais claro e de fácil entendimento. No código será encontrado os arquivos:
 
-* fifo.c/fifo.h: Contem a função de execução do algoritmo e a função de exibir os dados da tabela.
-* doisa.c/doisa.h Contem a função de execução do algoritmo e a função de exibir os dados da tabela.
-* lru.c/lru.h Contem a função de execução do algoritmo e a função de exibir os dados da tabela.
+* fifo.c/fifo.h: Contem a função de execução do algoritmo FIFO e a função de exibir os dados da tabela.
+* doisa.c/doisa.h Contem a função de execução do algoritmo Segunda Chance a função de exibir os dados da tabela.
+* lru.c/lru.h Contem a função de execução do algoritmo LRU e a função de exibir os dados da tabela.
 * estruturas.c/estruturas.h: Contém as estruturas citadas anteriormente.
-* main.c: Funcionamento de todo o sistema
+* main.c: Funcionamento geral do código
 
 #### 3. Implementação
 
@@ -59,4 +59,33 @@ O arquivo principal main.c será responsável por:
 * Faz o processo de leitura do arquivo fornecido e chama a função de algoritmo de substituição de acordo com o que foi repassado
 * Printa a saida dos dados gerais de acordo com a especifição fornecida no trabalho.
 
+
+Agora, revisando o funcionamento de cada uma dos algoritimos de substituição:
+
+##### 3.1 FIFO
+
+Basicamente equanto o algorirmo le as entradas do endereço e da operação do arquivo e caso ele tenha selecionado o algoritimo FIFO, ele verifica se a página está na fila e se a página criada está na tabela de página ele atualiza os dados da tabela da página acessada como por exemplo o último endereço acessado e se a página está suja ou não.
+
+Caso a página não esteja na fila ele verifica se todos os quadros estão lotados, caso esteja lotado ele segue o sugerido pelo algoritimo removendo o primeiro endereço acessado da lista. e se caso a página não tenha sido criada ele insere a página na fila com seus respectivos dados coletados.
+
+##### 3.2 LRU
+
+Com um processo semelhante as etapas do algoritimo anterior ele inicia verificando se a página está na tabela, logo depois percorre as páginas inseridas na tabela para atualizar o ultimo endereço, se a página está suja e o ultimo acesso daquela página.
+
+Logo depois é verificado se a página está na tabela ou não e caso não esteja analisamos o quadro para verificar se está cheio ou não. Caso esteja lotado ele segue o ajuste seguido pelo algoritimo removendo o ultimo endereço acessado.
+
+Por fim ele registra os dados coletados do arquivo enviado.
+
+##### 3.3 Segunda Chance
+
+Segue com um processo bem semelhante ao funcionamento do algoritimo LRU porém seguindo os ajustes do próprio algoritimo criamos uma veriavel de boolean para utilizar como referência dos bits.
+
+
+#### Decisões de Projeto
+
+Como decisões do projeto nosso interpretador não escreve em páginas sujas quando não existe a linha de operação de escrita por exemplo. E no caso da tabela optamos por colocar os seguintes campos:
+
+* Endereço: Ultimo endereço acessado 
+* Numero da página lida
+* Bit de controle para vericar se a página está suja (SIM) ou (NÃO)
 
