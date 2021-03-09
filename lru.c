@@ -2,14 +2,21 @@
 
 int idx;
 
-Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador_clock, Quadro *quadros_memoria, int *paginas_lidas, int *paginas_escritas) 
+Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador, int *paginas_lidas, int *paginas_escritas) 
 {
       Tabela tabela;
       tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
       for(idx = 0; idx < tamanho_tabela; idx++)
       {
           tabela.paginas[idx].id = -1;        
-      }          
+      }     
+
+      Quadro quadros_memoria[tamanho_tabela];
+
+      for(idx = 0; idx < tamanho_tabela; idx++)
+      {
+          quadros_memoria[idx].esta_na_memoria = 0;
+      }     
 
       int pagina_tabela = 0;
       for(idx = 0; idx < tamanho_tabela; idx++)
@@ -19,7 +26,7 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
           *paginas_escritas += 1;
           tabela.paginas[idx].endereco_acessado = endereco;
           tabela.paginas[idx].bit_controle = (operacao == 'W');
-          tabela.paginas[idx].ultimo_acesso = contador_clock;
+          tabela.paginas[idx].ultimo_acesso = contador;
           pagina_tabela = 1;
           break;
         }
@@ -54,7 +61,7 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
         tabela.paginas[indice_quadro_a_inserir].id = indice_quadro_a_inserir;
         tabela.paginas[indice_quadro_a_inserir].bit_controle = (operacao == 'W');
         tabela.paginas[indice_quadro_a_inserir].endereco_acessado = endereco;
-        tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = contador_clock;
+        tabela.paginas[indice_quadro_a_inserir].ultimo_acesso = contador;
 
         quadros_memoria[indice_quadro_a_inserir].esta_na_memoria = 1;
       }

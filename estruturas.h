@@ -27,15 +27,13 @@ typedef struct Fila
 } Fila;
 
 typedef struct Tabela
-{
-    unsigned int num_entradas;
+{    
     Pagina *paginas;
 } Tabela;
 
 typedef struct Quadro
 {
-    unsigned int ultimo_acesso;
-    unsigned int _carregamento;
+    unsigned int ultimo_acesso;    
     bool esta_na_memoria;
 } Quadro;
 

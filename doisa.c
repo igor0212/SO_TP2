@@ -4,7 +4,7 @@
 
 int idx;
 
-Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int clock_cont, int *paginas_lidas, int *paginas_escritas)
+Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int contador, int *paginas_lidas, int *paginas_escritas)
 {    
     Tabela tabela;
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
@@ -20,7 +20,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endere
       {     
         *paginas_escritas+=1;
         tabela.paginas[idx].endereco_acessado = endereco;        
-        tabela.paginas[idx].ultimo_acesso = clock_cont;        
+        tabela.paginas[idx].ultimo_acesso = contador;        
         tabela.paginas[idx].bit_controle = operacao == 'W';
         pagina_tabela = 1;
         break;
@@ -46,7 +46,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endere
       tabela.paginas[idx_inserir].numero = pagina_acesso;
       tabela.paginas[idx_inserir].id = idx_inserir;      
       tabela.paginas[idx_inserir].endereco_acessado = endereco;
-      tabela.paginas[idx_inserir].ultimo_acesso = clock_cont;      
+      tabela.paginas[idx_inserir].ultimo_acesso = contador;      
 
       return tabela;
     }
