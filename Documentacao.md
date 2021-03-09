@@ -44,6 +44,7 @@ mais claro e de fácil entendimento. No código será encontrado os arquivos:
 * fifo.c/fifo.h: Contem a função de execução do algoritmo FIFO e a função de exibir os dados da tabela.
 * doisa.c/doisa.h Contem a função de execução do algoritmo Segunda Chance a função de exibir os dados da tabela.
 * lru.c/lru.h Contem a função de execução do algoritmo LRU e a função de exibir os dados da tabela.
+* media.c/media.h Contem a função de execução do algoritmo Media e a função de exibir os dados da tabela.
 * estruturas.c/estruturas.h: Contém as estruturas citadas anteriormente.
 * main.c: Funcionamento geral do código
 
@@ -68,6 +69,8 @@ Basicamente equanto o algorirmo le as entradas do endereço e da operação do a
 
 Caso a página não esteja na fila ele verifica se todos os quadros estão lotados, caso esteja lotado ele segue o sugerido pelo algoritimo removendo o primeiro endereço acessado da lista. e se caso a página não tenha sido criada ele insere a página na fila com seus respectivos dados coletados.
 
+Complexidade apresentada: O(n)
+
 ##### 3.2 LRU
 
 Com um processo semelhante as etapas do algoritimo anterior ele inicia verificando se a página está na tabela, logo depois percorre as páginas inseridas na tabela para atualizar o ultimo endereço, se a página está suja e o ultimo acesso daquela página.
@@ -76,16 +79,28 @@ Logo depois é verificado se a página está na tabela ou não e caso não estej
 
 Por fim ele registra os dados coletados do arquivo enviado.
 
+Complexidade apresentada O(n2)
+
 ##### 3.3 Segunda Chance
 
 Segue com um processo bem semelhante ao funcionamento do algoritimo LRU porém seguindo os ajustes do próprio algoritimo criamos uma veriavel de boolean para utilizar como referência dos bits.
 
+Complexidade apresentada O(n2)
 
-#### Decisões de Projeto
+##### 3.4 Media
+
+Segue com um processo bem semelhante ao funcionamento do algoritimo LRU porém para escolher um novo indice a ser selecionado utilizamos a média do total de página que existem e removemos o valor medio desse resultado.
+
+Complexidade apresentada O(n)
+
+
+#### 3.5 Decisões de Projeto
 
 Como decisões do projeto nosso interpretador não escreve em páginas sujas quando não existe a linha de operação de escrita por exemplo. E no caso da tabela optamos por colocar os seguintes campos:
 
 * Endereço: Ultimo endereço acessado 
 * Numero da página lida
 * Bit de controle para vericar se a página está suja (SIM) ou (NÃO)
+
+#### Analise dos resultados
 
