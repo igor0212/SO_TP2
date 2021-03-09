@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include "doisa.h"
-#include "estruturas.h"
 
 int idx;
 
