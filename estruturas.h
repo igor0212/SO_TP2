@@ -30,8 +30,7 @@ typedef struct Fila
 } Fila;
 
 typedef struct Tabela
-{
-    unsigned int num_entradas;
+{    
     Pagina *paginas;
 } Tabela;
 
