@@ -4,7 +4,7 @@
 
 int idx;
 
-Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int endereco, char operacao, int clock_cont, int *paginas_lidas, int *paginas_escritas)
+Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco, char operacao, int clock_cont, int *paginas_lidas, int *paginas_escritas)
 {    
     Tabela tabela;
     tabela.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));    
@@ -29,7 +29,7 @@ Tabela doisa_execucao(int tamanho_tabela, int pagina_acesso,  unsigned int ender
     
     if(pagina_tabela == 0)
     {    
-      *paginas_lidas+=1;
+      *paginas_lidas += 1;
       int idx_inserir = -1;
       int auxiliar_minimo = -1;
 
