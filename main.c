@@ -1,8 +1,3 @@
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "estruturas.h"
 #include "fifo.h"
 #include "doisa.h"
@@ -13,7 +8,7 @@ char *nome_arquivo;
 int tamanho_paginas;
 int tamanho_memoria;
 int tamanho_tabela;
-int i;
+int idx;
 
 void main(int argc, char *argv[] ){     
 
@@ -51,20 +46,6 @@ void main(int argc, char *argv[] ){
         return;
     }
 
-    printf("Executando o simulador...\n");     
-   
-    
-    Tabela tabela_nao_fifo; 
-
-    if( strcmp(nome_algoritmo, "lru") == 0 || 
-        strcmp(nome_algoritmo, "2a") == 0)
-    {
-        tabela_nao_fifo.paginas = (Pagina *) malloc(tamanho_tabela * sizeof(Pagina));
-        for(i = 0; i < tamanho_tabela; i++){
-            tabela_nao_fifo.paginas[i].quadro = -1;            
-        }
-    }
-
     char operacao;
     unsigned int endereco;    
     unsigned int contador = 0;
@@ -82,8 +63,9 @@ void main(int argc, char *argv[] ){
 
     Quadro quadros_memoria[tamanho_tabela];
 
-    for(i = 0; i < tamanho_tabela; i++){
-        quadros_memoria[i].esta_na_memoria = 0;
+    for(idx = 0; idx < tamanho_tabela; idx++)
+    {
+        quadros_memoria[idx].esta_na_memoria = 0;
     }
 
     printf("Executando o simulador...\n");
