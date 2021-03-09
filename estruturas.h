@@ -27,14 +27,16 @@ typedef struct Fila
 } Fila;
 
 typedef struct Tabela
-{    
+{
+    unsigned int num_entradas;
     Pagina *paginas;
 } Tabela;
 
-typedef struct ItemMemoria
+typedef struct Quadro
 {
-    bool existe;
-    unsigned int ultimo_acesso;        
-} ItemMemoria;
+    unsigned int ultimo_acesso;
+    unsigned int _carregamento;
+    bool esta_na_memoria;
+} Quadro;
 
 void adicionarItemFila(Fila *fila, Item *item, Pagina pagina);

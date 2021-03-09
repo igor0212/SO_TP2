@@ -5,8 +5,6 @@
 #include "time.h"
 #include "math.h"
 #include <stdio.h>
-#include <string.h>
-
 
 char *nome_algoritmo;
 char *nome_arquivo;
@@ -64,7 +62,14 @@ void main(int argc, char *argv[] ){
 
     contador = 32u - contador;
            
-    int clock_cont = 1;    
+    int clock_cont = 1;
+
+    Quadro quadros_memoria[tamanho_tabela];
+
+    for(idx = 0; idx < tamanho_tabela; idx++)
+    {
+        quadros_memoria[idx].esta_na_memoria = 0;
+    }
 
     printf("Executando o simulador...\n");
     printf("Arquivo de entrada: %s\n", nome_arquivo);
@@ -86,7 +91,7 @@ void main(int argc, char *argv[] ){
         }
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
-            Tabela tabela = lru_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
+            Tabela tabela = lru_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, quadros_memoria, &paginas_lidas, &paginas_escritas);
             lru_listagem(tabela, tamanho_tabela);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
