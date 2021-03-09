@@ -38,8 +38,14 @@ Fila* fifo_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
     { 
       *paginas_lidas += 1;      
       Pagina* pagina = (Pagina*) malloc(sizeof(Pagina));
+      if (pagina == NULL)           
+      {
+          printf("Erro: Pagina não criada\n");
+          exit(1);
+      }
+
       pagina->numero = pagina_acesso;    
-      pagina->bit_controle = (operacao == 'W');
+      pagina->bit_controle = operacao == 'W';
       pagina->endereco_acessado = endereco;
       adicionarItemFila(fila, fila->fim, *pagina);      
     }  

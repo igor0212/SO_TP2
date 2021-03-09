@@ -6,7 +6,7 @@ void adicionarItemFila(Fila *fila, Item *item, Pagina pagina)
 
   if ((item_novo = (Item *) malloc (sizeof (Item))) == NULL)
   {
-    printf("Erro: Item novo não criada\n");
+    printf("Erro: Item novo não criado\n");
     exit(1);
   }          
 
