@@ -74,7 +74,7 @@ void lru_listagem(Tabela tabela, int tamanho_tabela)
   {            
       if(tabela.paginas[idx].id != -1)
       {
-          printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", tabela.paginas[idx].numero, tabela.paginas[idx].bit_controle ? "Sim" : "Não", tabela.paginas[idx].endereco_acessado);
+          printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", tabela.paginas[idx].numero, tabela.paginas[idx].endereco_acessado, tabela.paginas[idx].bit_controle ? "Sim" : "Não");
       }
   }
 }

@@ -56,7 +56,7 @@ void fifo_listagem(Fila* fila)
   {      
       if(item->pagina.numero != 0 && item->pagina.endereco_acessado != 0)
 
-      printf("Pagina: %u - Suja: %s - Ultimo endereco: %u\n", item->pagina.numero, item->pagina.bit_controle ? "Sim" : "Não", item->pagina.endereco_acessado);
+      printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", item->pagina.numero, item->pagina.endereco_acessado, item->pagina.bit_controle ? "Sim" : "Não");      
       item = item->proximo;
   }
 }

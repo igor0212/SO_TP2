@@ -70,8 +70,7 @@ void main(int argc, char *argv[] ){
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
     printf("Técnica de reposição: %s\n", nome_algoritmo);    
     printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);
-
-    printf("Tabela: \n\n");
+    printf("Tabela: \n");
 
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
 
