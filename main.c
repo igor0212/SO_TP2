@@ -3,6 +3,7 @@
 #include "fifo.h"
 #include "segundachance.h"
 #include "media.h"
+#include "analises.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
@@ -85,17 +86,17 @@ void main(int argc, char *argv[] ){
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
             Tabela tabela = lru_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            lru_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
             Tabela tabela = segundachance_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            segundachance_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         }
         else if(strcmp(nome_algoritmo, "media") == 0)
         {  
             Tabela tabela = media_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            media_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         }
 
         clock_cont++;

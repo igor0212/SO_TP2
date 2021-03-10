@@ -39,14 +39,3 @@ Tabela segundachance_execucao(int tamanho_tabela, int pagina_acesso, unsigned in
 
     return tabela;
 }
-
-void segundachance_listagem(Tabela tabela, int tamanho_tabela)
-{  
-  for(idx = 0; idx < tamanho_tabela; idx++)
-  {            
-      if(tabela.paginas[idx].id != -1 && tabela.paginas[idx].numero != 0 && tabela.paginas[idx].endereco_acessado != 0)
-      {
-          printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", tabela.paginas[idx].numero, tabela.paginas[idx].endereco_acessado, tabela.paginas[idx].bit_controle ? "Sim" : "Não");
-      }
-  }
-}

@@ -42,3 +42,14 @@ Tabela analisarPaginaForaTabela(Tabela tabela, ItemMemoria* itens_memoria, int *
 
       return tabela;
 }
+
+void listagem_tabela(Tabela tabela, int tamanho_tabela)
+{  
+  for(idx = 0; idx < tamanho_tabela; idx++)
+  {            
+      if(tabela.paginas[idx].id != -1)
+      {
+          printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", tabela.paginas[idx].numero, tabela.paginas[idx].endereco_acessado, tabela.paginas[idx].bit_controle ? "Sim" : "Não");
+      }
+  }
+}
