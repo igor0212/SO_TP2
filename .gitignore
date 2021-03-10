@@ -6,3 +6,4 @@ lru.o
 main.o
 media.o
 segundachance.o
+comum.o
