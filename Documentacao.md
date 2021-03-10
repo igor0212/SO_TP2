@@ -16,7 +16,6 @@ O objetivo desse trabalho é a implementação dos algoritmos de subtituição s
 
 #### 2. Estruturas e Organização
 
-
 Para implementação do projeto utilizamos um conjunto de estruturas para armazenar e facilitar os dados coletados dos arquivos de log recebidos pelo programa. 
 
 Os dados contidos e cada estrutura, são, respectivamente:
@@ -33,7 +32,6 @@ Os dados contidos e cada estrutura, são, respectivamente:
 
 * Lista: Guarda o tamanho e ponteiros para inicio e o fim da lista.
 
-
 Também vinculado a essas estruturas temos a função inserir e remover para manipulação da lista.
 
 ###### Divisão dos arquivos
@@ -42,7 +40,7 @@ Optamos por dividir os algoritimos de substituição em diferentes arquivos a fi
 mais claro e de fácil entendimento. No código será encontrado os arquivos:
 
 * fifo.c/fifo.h: Contem a função de execução do algoritmo FIFO e a função de exibir os dados da tabela.
-* doisa.c/doisa.h Contem a função de execução do algoritmo Segunda Chance a função de exibir os dados da tabela.
+* segundachance.c/segundachance.h Contem a função de execução do algoritmo Segunda Chance a função de exibir os dados da tabela.
 * lru.c/lru.h Contem a função de execução do algoritmo LRU e a função de exibir os dados da tabela.
 * media.c/media.h Contem a função de execução do algoritmo Media e a função de exibir os dados da tabela.
 * estruturas.c/estruturas.h: Contém as estruturas citadas anteriormente.
@@ -59,7 +57,6 @@ O arquivo principal main.c será responsável por:
 * Cria um contador que salva numero maximo de bits que podem ser usados para identificar as paginas(algoritmo foi retirado da espeficação do trabalho).
 * Faz o processo de leitura do arquivo fornecido e chama a função de algoritmo de substituição de acordo com o que foi repassado
 * Printa a saida dos dados gerais de acordo com a especifição fornecida no trabalho.
-
 
 Agora, revisando o funcionamento de cada uma dos algoritimos de substituição:
 
@@ -93,7 +90,6 @@ Segue com um processo bem semelhante ao funcionamento do algoritimo LRU porém p
 
 Complexidade apresentada O(n)
 
-
 #### 3.5 Decisões de Projeto
 
 Como decisões do projeto nosso interpretador não escreve em páginas sujas quando não existe a linha de operação de escrita por exemplo. E no caso da tabela optamos por colocar os seguintes campos:
@@ -103,4 +99,3 @@ Como decisões do projeto nosso interpretador não escreve em páginas sujas qua
 * Bit de controle para vericar se a página está suja (SIM) ou (NÃO)
 
 #### Analise dos resultados
-
