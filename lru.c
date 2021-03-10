@@ -1,5 +1,5 @@
 #include "lru.h"
-#include "analises.h"
+#include "comum.h"
 
 int idx;
 

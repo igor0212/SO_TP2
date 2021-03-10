@@ -6,7 +6,7 @@ output: "pdf_document"
 ## <center> Universidade Federal de Minas Gerais </center>
 
 ###### <center> Vitor Ribeiro dos Santos - 2017023676
-###### <center> Igor Oliveira Valente da Silveira 
+###### <center> Igor Oliveira Valente da Silveira - 2017105575
 
 <br><br><br><br><br><br><br>
 
@@ -44,6 +44,7 @@ mais claro e de fácil entendimento. No código será encontrado os arquivos:
 * lru.c/lru.h Contem a função de execução do algoritmo LRU e a função de exibir os dados da tabela.
 * media.c/media.h Contem a função de execução do algoritmo Media e a função de exibir os dados da tabela.
 * estruturas.c/estruturas.h: Contém as estruturas citadas anteriormente.
+* comum.c/comum.h: Contém os métodos comuns que os algoritmos possuem.
 * main.c: Funcionamento geral do código
 
 #### 3. Implementação

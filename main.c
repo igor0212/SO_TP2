@@ -3,7 +3,7 @@
 #include "fifo.h"
 #include "segundachance.h"
 #include "media.h"
-#include "analises.h"
+#include "comum.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
