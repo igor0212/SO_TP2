@@ -1,4 +1,5 @@
 #include "lru.h"
+#include "analises.h"
 
 int idx;
 
@@ -34,47 +35,8 @@ Tabela lru_execucao(int tamanho_tabela, int pagina_acesso, unsigned int endereco
 
       if(pagina_tabela == 0)
       {
-        *paginas_lidas += 1;      
-        int idx_inserir = -1;
-
-        for(idx = 0; idx < tamanho_tabela; idx++)
-        {
-          if(!itens_memoria[idx].existe)
-          {
-            idx_inserir = idx;
-            break;
-          }
-        }
-
-        if(idx_inserir == -1)
-        {
-          int auxiliar_minimo = -1;
-          for(idx = 0; idx < tamanho_tabela; idx++)
-          {
-            if(tabela.paginas[idx].ultimo_acesso < auxiliar_minimo){
-              auxiliar_minimo = tabela.paginas[idx].ultimo_acesso;
-              idx_inserir = idx;
-            }
-          }          
-        }
-        
-        tabela.paginas[idx_inserir].ultimo_acesso = contador_clock;  
-        tabela.paginas[idx_inserir].numero = pagina_acesso;
-        tabela.paginas[idx_inserir].id = idx_inserir;        
-        tabela.paginas[idx_inserir].endereco_acessado = endereco;
-        tabela.paginas[idx_inserir].bit_controle = operacao == 'W';             
+        return analisarPaginaForaTabela(tabela, itens_memoria, paginas_lidas, tamanho_tabela, pagina_acesso, endereco, operacao);           
       }
 
       return tabela;
-}
-
-void lru_listagem(Tabela tabela, int tamanho_tabela)
-{  
-  for(idx = 0; idx < tamanho_tabela; idx++)
-  {            
-      if(tabela.paginas[idx].id != -1)
-      {
-          printf("     Pagina: %u - Endereço: %u - Bit de controle (Sim ou não): %s\n", tabela.paginas[idx].numero, tabela.paginas[idx].endereco_acessado, tabela.paginas[idx].bit_controle ? "Sim" : "Não");
-      }
-  }
 }

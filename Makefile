@@ -1,5 +1,5 @@
-tp2virtual: main.o fifo.o lru.o segundachance.o estruturas.o media.o
-	gcc main.o fifo.o lru.o segundachance.o estruturas.o media.o -o tp2virtual
+tp2virtual: main.o fifo.o lru.o segundachance.o estruturas.o media.o analises.o
+	gcc main.o fifo.o lru.o segundachance.o estruturas.o media.o analises.o -o tp2virtual
 	
 main.o: main.c
 	gcc -c -g main.c
@@ -18,3 +18,6 @@ media.o: media.c media.h
 
 estruturas.o: estruturas.c estruturas.h
 	gcc -c -g estruturas.c
+
+analises.o: analises.c analises.h
+	gcc -c -g analises.c

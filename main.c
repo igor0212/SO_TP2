@@ -3,6 +3,7 @@
 #include "fifo.h"
 #include "segundachance.h"
 #include "media.h"
+#include "analises.h"
 #include "lru.h"
 #include "time.h"
 #include "math.h"
@@ -70,8 +71,7 @@ void main(int argc, char *argv[] ){
     printf("Arquivo de entrada: %s\n", nome_arquivo);
     printf("Tamanho da memoria: %d KB\n", tamanho_memoria);
     printf("Tamanho das páginas: %d KB\n", tamanho_paginas);
-    printf("Técnica de reposição: %s\n", nome_algoritmo);    
-    printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);
+    printf("Técnica de reposição: %s\n", nome_algoritmo);        
     printf("Tabela: \n");    
 
     while(fscanf(arquivo_log,"%x %c\n", &endereco, &operacao) != EOF){       
@@ -86,24 +86,25 @@ void main(int argc, char *argv[] ){
         else if(strcmp(nome_algoritmo, "lru") == 0)
         {
             Tabela tabela = lru_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            lru_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         } 
         else if(strcmp(nome_algoritmo, "2a") == 0)
         {  
             Tabela tabela = segundachance_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            segundachance_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         }
         else if(strcmp(nome_algoritmo, "media") == 0)
         {  
             Tabela tabela = media_execucao(tamanho_tabela, numero_pagina_acessada, endereco, operacao, clock_cont, &paginas_lidas, &paginas_escritas);
-            media_listagem(tabela, tamanho_tabela);
+            listagem_tabela(tabela, tamanho_tabela);
         }
 
         clock_cont++;
     }
 
     printf("Paginas lidas: %d\n", paginas_lidas);
-    printf("Paginas escritas: %d\n", paginas_escritas);         
+    printf("Paginas escritas: %d\n", paginas_escritas);  
+    printf("Tempo de execucao: %g s. \n", (double)(clock() - inicio) / CLOCKS_PER_SEC);       
 
     return;   
 }
